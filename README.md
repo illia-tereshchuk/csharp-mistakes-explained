@@ -2,7 +2,7 @@
 
 Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 
-> Museum stats: **4** exhibits in **3** halls, latest addition — **#0004**.
+> Museum stats: **5** exhibits in **4** halls, latest addition — **#0005**.
 
 ### 🗂 Collections
 
@@ -23,7 +23,13 @@ Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 |--:|---------|-------|----------|
 | 0003 | [Incrementing a shared counter from parallel threads](src/async/0003-race-on-shared-counter/) | 🟢 | `counter++` from two threads — thousands of increments quietly vanish. |
 
+### 💥 Exceptions
+
+| # | Exhibit | Level | The pain |
+|--:|---------|-------|----------|
+| 0005 | [Rethrowing with throw ex](src/exceptions/0005-throw-ex-stack-amnesia/) | 🟡 | `throw ex` wipes the stack trace — the investigation starts at the wrong line |
+
 # To Be Continued
 
 More halls under construction: **ORM**, **datetime**,
-**strings & memory**, **exceptions**, **DI lifetimes**, **security**.
+**strings & memory**, **DI lifetimes**, **security**.
