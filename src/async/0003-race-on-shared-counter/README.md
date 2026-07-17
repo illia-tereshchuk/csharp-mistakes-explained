@@ -31,12 +31,6 @@ var kioskA = Task.Run(RunKiosk);
 var kioskB = Task.Run(RunKiosk);
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 ## 🧠 What's Actually Going On
 
 `ticketsSold++` looks like one operation, but the CPU executes three:

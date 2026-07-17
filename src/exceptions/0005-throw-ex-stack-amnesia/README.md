@@ -31,12 +31,6 @@ catch (Exception ex)
 }
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 The exhibit prints the trace and then checks it for the origin method —
 in `Bad.cs` the check fails: `ValidateCard` is gone from its own crime scene.
 

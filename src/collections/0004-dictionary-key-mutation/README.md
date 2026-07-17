@@ -34,12 +34,6 @@ record Player
 }
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 ## 🧠 What's Actually Going On
 
 A dictionary is an array of **buckets**. On insert it calls

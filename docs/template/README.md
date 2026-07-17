@@ -21,12 +21,6 @@ weird logs, wrong totals, a service that dies at 3 AM. Make the reader say
 // The minimal incriminating snippet — a few lines, not the whole file
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 ## 🧠 What's Actually Going On
 
 The mechanics. Why does the runtime / compiler / library behave this way?

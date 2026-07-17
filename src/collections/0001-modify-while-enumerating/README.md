@@ -28,12 +28,6 @@ foreach (var subscriber in subscribers)
 }
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 ## 🧠 What's Actually Going On
 
 `foreach` works through an **enumerator** — a cursor stepping through the list.

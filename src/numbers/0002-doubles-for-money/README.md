@@ -24,12 +24,6 @@ var payments = Enumerable.Repeat(0.10, 10); // ten dimes
 double total = payments.Sum(); // 0.9999999999999999 — not a dollar
 ```
 
-Reproduce:
-
-```bash
-dotnet run Bad.cs
-```
-
 ## 🧠 What's Actually Going On
 
 `double` is a **binary** floating-point type: it stores numbers as sums of
