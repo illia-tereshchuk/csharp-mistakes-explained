@@ -1,5 +1,4 @@
 // Exhibit #XXXX: name the crime being committed
-// Run: dotnet run Bad.cs
 
 // 1. Arrange a tiny believable domain — an OrderService beats a Foo.
 //    Keep it under ~100 lines total.

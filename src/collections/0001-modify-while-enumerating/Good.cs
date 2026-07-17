@@ -1,5 +1,4 @@
-// Exhibit #0001: the fix — don't saw off the branch you're walking on
-// Run: dotnet run Good.cs
+// Exhibit #0001: the fix
 
 var subscribers = new List<Subscriber>
 {

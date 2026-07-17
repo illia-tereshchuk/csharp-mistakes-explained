@@ -1,5 +1,4 @@
 // Exhibit #0001: modifying a collection while iterating over it
-// Run: dotnet run Bad.cs
 
 var subscribers = new List<Subscriber>
 {
