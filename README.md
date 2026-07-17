@@ -2,7 +2,7 @@
 
 Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 
-> Museum stats: **8** exhibits in **6** halls, latest addition - **#0008**.
+> Museum stats: **9** exhibits in **6** halls, latest addition - **#0009**.
 
 ### 🗂 Collections
 
@@ -35,6 +35,7 @@ Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 | # | Exhibit | Level | The pain |
 |--:|---------|-------|----------|
 | 0006 | [A closure capturing the loop variable](src/linq/0006-closure-over-loop-variable/) | 🟢 | five callbacks, one shared `i` - every lambda reads the value after the loop ended |
+| 0009 | [Enumerating a LINQ query twice](src/linq/0009-multiple-enumeration/) | 🟡 | the header counted 3 rows, the body printed 2 - each enumeration reruns the query |
 
 ### 🗄 ORM
 
