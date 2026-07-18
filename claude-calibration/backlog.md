@@ -60,11 +60,10 @@ Order chosen to: open 4 new halls, spread archetypes, introduce 🔴.
 | path-combine-betrayal | 🔴 | 5 | `Path.Combine(root, input)` silently DROPS root if input is absolute. No "..". |
 | guessable-random | 🟡 | 6 | `Random` for reset tokens; seed predictable, token reproducible. |
 
-### value-types (candidate new hall)
+### value-types (hall opened by #0011)
 | slug | lvl | A | twist |
 |------|:--:|:--:|-------|
-| the-vanishing-mutation | 🔴 | 3 | mutate struct from a collection -> mutates a copy; array works, List doesn't. |
-| defensive-copy-ambush | 🔴 | 3 | struct in readonly field; every method call runs on a fresh defensive copy. |
+| the-vanishing-mutation | 🔴 | 3 | mutate struct from a collection -> mutates a copy; array works, List doesn't. Sibling of #0011. |
 
 ### events (hall opened by #0010)
 | slug | lvl | A | twist |

@@ -2,7 +2,7 @@
 
 Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 
-> Museum stats: **10** exhibits in **7** halls, latest addition - **#0010**.
+> Museum stats: **11** exhibits in **8** halls, latest addition - **#0011**.
 
 ### 🗂 Collections
 
@@ -48,6 +48,12 @@ Ideal tutorials teach you SOLID. **Bad** code is remembered better.
 | # | Exhibit | Level | The pain |
 |--:|---------|-------|----------|
 | 0010 | [A static event that never lets go](src/events/0010-immortal-subscriber/) | 🔴 | a closed widget keeps reacting to events - the static event pins it in memory forever |
+
+### 📦 Value Types
+
+| # | Exhibit | Level | The pain |
+|--:|---------|-------|----------|
+| 0011 | [A mutable struct behind a readonly field](src/value-types/0011-defensive-copy-ambush/) | 🔴 | every method call on the readonly field runs on a hidden copy - points added, balance forever 0 |
 
 # To Be Continued
 
