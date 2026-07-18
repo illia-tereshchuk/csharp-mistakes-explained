@@ -24,11 +24,10 @@ Order chosen to: open 4 new halls, spread archetypes, introduce 🔴.
 | the-collected-timer | 🔴 | 6 | Timer with no stored ref gets GC'd; force GC.Collect, ticks stop. |
 | lock-on-a-string | 🔴 | 2 | `lock("cache")` in 2 classes = same interned object. Prove via ReferenceEquals. |
 
-### datetime (hall closed - open with a strong one)
+### datetime (hall opened by #0020)
 | slug | lvl | A | twist |
 |------|:--:|:--:|-------|
-| kind-blind-equality | 🔴 | 4 | 14:00 UTC == 14:00 Local; `==` compares ticks, ignores Kind. Best opener. |
-| shrinking-billing-day | 🟡 | 3 | Jan31 +1mo = Feb28, billing day slides to 28 forever; -1mo != back. |
+| kind-blind-equality | 🔴 | 4 | 14:00 UTC == 14:00 Local; `==` compares ticks, ignores Kind. |
 | the-25-hour-day | 🔴 | 6 | AddHours(24) != "tomorrow same time" across DST. Pin TimeZoneInfo or CI lies. |
 
 ### strings-memory (closed)

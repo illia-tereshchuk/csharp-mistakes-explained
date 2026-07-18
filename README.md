@@ -1,6 +1,6 @@
 # C# Bad Practices
 
-> Museum stats: **19** exhibits in **10** halls, latest addition - **#0019**.
+> Museum stats: **20** exhibits in **11** halls, latest addition - **#0020**.
 
 ### 🗂 Collections
 
@@ -71,7 +71,12 @@
 |--:|---|---|---|
 | 0012 | [A JSON payload that maps to nothing](src/serialization/0012-zero-priced-order/) | 🟡 | never deserialize without pinning the naming contract |
 
+### 📅 Datetime
+
+| | | | |
+|--:|---|---|---|
+| 0020 | [A billing day that shrinks](src/datetime/0020-shrinking-billing-day/) | 🟡 | never compute the next date from the previous one - keep the anchor |
+
 # To Be Continued
 
-More halls under construction: **datetime**,
-**strings & memory**, **DI lifetimes**, **security**.
+More halls under construction: **strings & memory**, **security**.
