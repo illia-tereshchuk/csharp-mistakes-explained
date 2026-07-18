@@ -1,6 +1,6 @@
 # C# Bad Practices
 
-> Museum stats: **18** exhibits in **10** halls, latest addition - **#0018**.
+> Museum stats: **19** exhibits in **10** halls, latest addition - **#0019**.
 
 ### 🗂 Collections
 
@@ -23,6 +23,7 @@
 | 0007 | [async void and the uncatchable exception](src/async/0007-async-void/) | 🟡 | never write `async void` outside event handlers |
 | 0016 | [A cancellation token nobody reads](src/async/0016-token-tourism/) | 🟡 | never accept a token you don't pass down or check |
 | 0018 | [Tasks mistaken for results](src/async/0018-tasks-are-not-results/) | 🟡 | never mistake a collection of tasks for a collection of results |
+| 0019 | [The fire-and-forgotten task](src/async/0019-forgotten-task/) | 🟡 | never drop a Task - await it or hand it to someone who will |
 
 ### 💥 Exceptions
 
