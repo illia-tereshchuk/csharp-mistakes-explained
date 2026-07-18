@@ -40,9 +40,9 @@ Order chosen to: open 4 new halls, spread archetypes, introduce 🔴.
 | mojibake-factory | 🟢 | 4 | double-encode: "Привіт" -> "ÐŸÑ€Ð¸Ð²Ñ–Ñ‚". simple but byte-level finale. |
 
 ### exceptions
-| slug | lvl | A | twist |
-|------|:--:|:--:|-------|
-| the-finally-that-lied | 🔴 | 5,7 | throw in finally REPLACES the real cause; sibling of 0005. |
+_Empty - the-finally-that-lied shipped as #0017, cancellation-eaten-by-catch
+as #0015. Seeds: exception filters (`when`) side effects · GC.KeepAlive
+myths · rethrow across await boundaries._
 
 ### di-lifetimes (hall opened by #0014)
 | slug | lvl | A | twist |

@@ -2,8 +2,8 @@
 
 _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
-- Exhibits: **16** | Halls: **10** | Next free id: **0017**
-- Last updated after: #0016 (2026-07-18)
+- Exhibits: **17** | Halls: **10** | Next free id: **0018**
+- Last updated after: #0017 (2026-07-18)
 
 ## Exhibits shipped
 
@@ -25,6 +25,7 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 | 0014 | di-lifetimes | container-hoarder | 🔴 | 5 |
 | 0015 | exceptions | cancellation-eaten-by-catch | 🟡 | 5 |
 | 0016 | async | token-tourism | 🟡 | 5 |
+| 0017 | exceptions | finally-that-lied | 🔴 | 5,7 |
 
 ## Halls
 
@@ -33,7 +34,7 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
 ## Level mix
 
-- 🟢 4 | 🟡 9 | 🔴 3  ->  healthy; next batch should lean 🔴.
+- 🟢 4 | 🟡 9 | 🔴 4  ->  healthy; keep the spread.
 
 ## Infra status
 

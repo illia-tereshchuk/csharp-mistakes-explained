@@ -1,6 +1,6 @@
 # C# Bad Practices
 
-> Museum stats: **16** exhibits in **10** halls, latest addition - **#0016**.
+> Museum stats: **17** exhibits in **10** halls, latest addition - **#0017**.
 
 ### 🗂 Collections
 
@@ -29,6 +29,7 @@
 |--:|---|---|---|
 | 0005 | [Rethrowing with throw ex](src/exceptions/0005-throw-ex-stack-amnesia/) | 🟡 | never rethrow with `throw ex` - use bare `throw` |
 | 0015 | [A catch-all that swallows cancellation](src/exceptions/0015-cancellation-eaten-by-catch/) | 🟡 | never let a catch-all eat OperationCanceledException |
+| 0017 | [A finally block that throws](src/exceptions/0017-finally-that-lied/) | 🔴 | never let a finally block throw |
 
 ### 🔗 LINQ & Lambdas
 
