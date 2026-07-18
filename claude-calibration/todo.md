@@ -9,7 +9,7 @@ call - a stocked museum sells better than empty CI.
 Pull from `backlog.md` recommended batch. Assign ids at commit time.
 
 - **A1.** the-captive-scoped -> opens **di-lifetimes** hall, 🔴 flagship, `#:package` #2.
-- **A2.** the-zero-priced-order -> opens **serialization** hall, 🟡.
+- **A2.** ~~the-zero-priced-order~~ DONE as #0012 (2026-07-18).
 - **A3.** whenall-hides-exceptions -> async, 🔴.
 - **A4.** the-finally-that-lied -> exceptions, 🔴 (sibling of 0005).
 - **A5.** path-combine-betrayal -> opens **security** hall, 🔴.

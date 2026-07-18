@@ -9,7 +9,7 @@ Ids are assigned at commit time, not here.
 Order chosen to: open 4 new halls, spread archetypes, introduce 🔴.
 
 1. **the-captive-scoped** (di-lifetimes, 🔴) - flagship, opens di. `#:package` #2.
-2. **the-zero-priced-order** (serialization, 🟡) - opens serialization; quietest bug in the pool.
+2. ~~the-zero-priced-order~~ DONE as #0012.
 3. **whenall-hides-exceptions** (async, 🔴)
 4. **the-finally-that-lied** (exceptions, 🔴)
 5. **path-combine-betrayal** (security, 🔴) - opens security.
@@ -70,10 +70,10 @@ Order chosen to: open 4 new halls, spread archetypes, introduce 🔴.
 |------|:--:|:--:|-------|
 | the-unremovable-lambda | 🟡 | 1 | `Click -= (s,e)=>...` never unsubscribes; different delegate instance. Teased in #0010's 😈 section. |
 
-### serialization (candidate new hall)
+### serialization (hall opened by #0012; pool needs restocking)
 | slug | lvl | A | twist |
 |------|:--:|:--:|-------|
-| the-zero-priced-order | 🟡 | 5 | STJ case-sensitive by default; "amount" != Amount, price stays 0, order ships free. |
+| _seeds:_ DateTime Kind lost in JSON roundtrip · polymorphic `$type` handling · reference loops | | | brainstorm before proposing |
 
 ### collections / linq (misc pool)
 | slug | lvl | A | twist |
