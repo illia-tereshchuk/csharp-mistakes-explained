@@ -6,8 +6,8 @@ in the "reason" column; they encode the curation bar.
 
 | candidate | reason category | detail |
 |-----------|-----------------|--------|
-| turkish-i-login | too banal / predictable finale | classic listicle item; no mechanic twist, reader guesses the end. |
-| int-overflow-in-cart | too banal / predictable finale | same - "int overflows" surprises no one. |
+| turkish-i-login | too banal / primer-level | everyone typed a password in the wrong keyboard layout as a kid - common knowledge from the moment you touch a computer, below the museum's floor. |
+| int-overflow-in-cart | too banal / primer-level | every junior has already hit integer overflow; it's a primer, not an exhibit - people know it before they're paid to code. |
 | path-combine-betrayal | doesn't happen in real code | author's call: the absolute-path-discards-root scenario isn't something he sees in real projects. Built and reverted at #0021 before commit. |
 | .Result deadlock | cannot reproduce honestly | needs a SynchronizationContext (UI/legacy ASP.NET); a console app can't show it. Rule: no exhibit that doesn't reproduce. |
 | StringBuilder-in-a-loop | proven only by timing | "trust me it's slow" is banned; timings flicker across machines. |
@@ -16,7 +16,7 @@ in the "reason" column; they encode the curation bar.
 
 ## Reason categories (the bar, distilled)
 
-1. **Predictable finale** - reader guesses the outcome from the title. Needs a "wait, WHAT?" twist in the mechanic.
+1. **Predictable finale / primer-level** - either the reader guesses the outcome from the title, OR the bug is so universally experienced (integer overflow, wrong keyboard layout) that it's common knowledge from day one - a primer, below the museum's floor. An exhibit needs a mechanic twist AND a topic that isn't already in everyone's bones. When proposing, pre-filter anything a person learns "the moment they touch a computer."
 2. **Cannot reproduce honestly** - won't fail deterministically in a single console file.
 3. **Proven only by timing** - performance claim with no hard assertion; banned.
 4. **CI would lie** - outcome depends on machine culture/zone/GC without the code pinning it.
