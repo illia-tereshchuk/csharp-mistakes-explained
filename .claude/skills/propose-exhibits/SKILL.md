@@ -1,0 +1,40 @@
+---
+name: propose-exhibits
+description: Generate a menu of candidate exhibits for the curator to choose from, grouped by hall, each with a one-line hook. Use when the curator asks "what next", wants options to pick from, wants to restock the backlog, or wants to see coverage across halls.
+---
+
+# Propose exhibits
+
+Produce a menu the curator picks from. This skill only *proposes* - the curator
+names the specific cases to build, then the `add-exhibit` skill builds each one.
+
+## Sources and filters
+
+- Pull queued ideas from `claude-calibration/backlog.md`.
+- **Exclude everything in `claude-calibration/rejected.md`** - never re-propose a
+  declined idea, and pre-filter anything that trips its reason categories
+  (predictable finale, can't reproduce, timing-only, CI-would-lie,
+  doesn't-happen-in-real-code).
+- Apply the curation bar from `CLAUDE.md`: one broken mental model, reject
+  predictable finales, prefer accessible + axiomatic, prefer silent-wrongness /
+  money stakes.
+- Balance against `claude-calibration/archetypes.md` - spread across the 7
+  archetypes, don't stack one.
+
+## Format (grouped by hall)
+
+Group candidates under their hall. Mark unopened halls (a candidate there opens
+a new hall). One line per candidate:
+
+```
+slug  🟢/🟡/🔴  — the twist (the mechanic, not just the restated title)
+```
+
+The description is the "wait, WHAT?" - the hook that makes it exhibit-worthy,
+not a full explanation. Keep the whole menu scannable.
+
+## After proposing
+
+Stop and let the curator select. Do not start building. When cases are named,
+switch to `add-exhibit` for each. Move chosen ideas out of `backlog.md` as they
+ship; add declined ones to `rejected.md` with a reason.
