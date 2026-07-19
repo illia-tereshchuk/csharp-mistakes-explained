@@ -3,7 +3,7 @@ id: "0015"
 title: A catch-all that swallows cancellation
 category: exceptions
 tags: [cancellation, exceptions, retry]
-rule: "never let a catch-all eat OperationCanceledException"
+rule: "never let a **catch-all** eat `OperationCanceledException`"
 ---
 
 # #0015 - A Catch-All That Swallows Cancellation

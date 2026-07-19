@@ -3,7 +3,7 @@ id: "0009"
 title: Enumerating a LINQ query twice
 category: linq
 tags: [LINQ, IEnumerable, deferred-execution]
-rule: "never enumerate a LINQ query twice - materialize it once"
+rule: "never enumerate a **LINQ query twice** - materialize it once"
 ---
 
 # #0009 - Enumerating a LINQ Query Twice

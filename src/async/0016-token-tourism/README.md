@@ -3,7 +3,7 @@ id: "0016"
 title: A cancellation token nobody reads
 category: async
 tags: [cancellation, CancellationToken, async]
-rule: "never accept a token you don't pass down or check"
+rule: "never accept a **token** you don't **pass down or check**"
 ---
 
 # #0016 - A Cancellation Token Nobody Reads

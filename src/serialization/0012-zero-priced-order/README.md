@@ -3,7 +3,7 @@ id: "0012"
 title: A JSON payload that maps to nothing
 category: serialization
 tags: [System.Text.Json, deserialization, case-sensitivity]
-rule: "never deserialize without pinning the naming contract"
+rule: "never deserialize without pinning the **naming contract**"
 ---
 
 # #0012 - A JSON Payload That Maps to Nothing

@@ -3,7 +3,7 @@ id: "0014"
 title: Transient disposables resolved from the root container
 category: di-lifetimes
 tags: [dependency-injection, IDisposable, lifetimes, memory-leak]
-rule: "never resolve transient disposables from the root container"
+rule: "never resolve **transient disposables** from the **root container**"
 ---
 
 # #0014 - Transient Disposables Resolved From the Root Container

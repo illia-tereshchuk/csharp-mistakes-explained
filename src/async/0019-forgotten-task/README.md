@@ -3,7 +3,7 @@ id: "0019"
 title: The fire-and-forgotten task
 category: async
 tags: [async, fire-and-forget, CS4014]
-rule: "never drop a Task - await it or hand it to someone who will"
+rule: "never **drop a Task** - await it or hand it to someone who will"
 ---
 
 # #0019 - The Fire-and-Forgotten Task

@@ -3,7 +3,7 @@ id: "0024"
 title: Serializing through a base-typed reference
 category: serialization
 tags: [System.Text.Json, polymorphism, inheritance]
-rule: "never serialize a polymorphic value without declaring the hierarchy"
+rule: "never serialize a **polymorphic** value without **declaring the hierarchy**"
 ---
 
 # #0024 - Serializing Through a Base-Typed Reference

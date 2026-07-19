@@ -3,7 +3,7 @@ id: "0022"
 title: A singleton that captured a scoped dependency
 category: di-lifetimes
 tags: [dependency-injection, lifetimes, captive-dependency, thread-safety]
-rule: "never inject a scoped service into a singleton"
+rule: "never inject a **scoped** service into a **singleton**"
 ---
 
 # #0022 - A Singleton That Captured a Scoped Dependency

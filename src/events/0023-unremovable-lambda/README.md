@@ -3,7 +3,7 @@ id: "0023"
 title: Unsubscribing from an event with a lambda
 category: events
 tags: [events, delegates, lambdas, unsubscribe]
-rule: "never unsubscribe with a lambda - name the handler"
+rule: "never **unsubscribe with a lambda** - name the handler"
 ---
 
 # #0023 - Unsubscribing From an Event With a Lambda

@@ -3,7 +3,7 @@ id: "0004"
 title: Mutating an object that lives as a dictionary key
 category: collections
 tags: [Dictionary, GetHashCode, records]
-rule: "never mutate an object that serves as a dictionary key"
+rule: "never mutate an object that serves as a **dictionary key**"
 ---
 
 # #0004 - Mutating an Object That Lives as a Dictionary Key

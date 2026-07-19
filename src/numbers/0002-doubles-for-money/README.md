@@ -3,7 +3,7 @@ id: "0002"
 title: Calculating money with double
 category: numbers
 tags: [double, decimal, floating-point]
-rule: "never use `double` for money"
+rule: "never use `double` for **money**"
 ---
 
 # #0002 - Calculating Money with Double

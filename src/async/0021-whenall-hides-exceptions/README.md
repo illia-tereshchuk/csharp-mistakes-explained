@@ -3,7 +3,7 @@ id: "0021"
 title: await Task.WhenAll shows only the first fault
 category: async
 tags: [async, Task.WhenAll, AggregateException]
-rule: "never trust await Task.WhenAll to report more than one failure"
+rule: "never trust `await Task.WhenAll` to report **more than one failure**"
 ---
 
 # #0021 - await Task.WhenAll Shows Only the First Fault

@@ -3,7 +3,7 @@ id: "0003"
 title: Incrementing a shared counter from parallel threads
 category: async
 tags: [threading, race-condition, Interlocked]
-rule: "never mutate shared state without synchronization"
+rule: "never mutate **shared state** without **synchronization**"
 ---
 
 # #0003 - Incrementing a Shared Counter from Parallel Threads

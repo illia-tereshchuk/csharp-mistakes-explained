@@ -3,7 +3,7 @@ id: "0007"
 title: async void and the uncatchable exception
 category: async
 tags: [async, exceptions, fire-and-forget]
-rule: "never write `async void` outside event handlers"
+rule: "never write `async void` outside **event handlers**"
 ---
 
 # #0007 - `async void` and the Uncatchable Exception

@@ -3,7 +3,7 @@ id: "0001"
 title: Modifying a collection while iterating
 category: collections
 tags: [List, foreach, InvalidOperationException]
-rule: "never modify a collection while iterating it"
+rule: "never modify a **collection** while **iterating** it"
 ---
 
 # #0001 - Modifying a Collection While Iterating

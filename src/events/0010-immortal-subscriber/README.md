@@ -3,7 +3,7 @@ id: "0010"
 title: A static event that never lets go
 category: events
 tags: [events, memory-leak, GC, WeakReference]
-rule: "never subscribe to a long-lived event without unsubscribing"
+rule: "never subscribe to a **long-lived event** without **unsubscribing**"
 ---
 
 # #0010 - A Static Event That Never Lets Go

@@ -3,7 +3,7 @@ id: "0020"
 title: A billing day that shrinks
 category: datetime
 tags: [DateTime, AddMonths, recurrence]
-rule: "never compute the next date from the previous one - keep the anchor"
+rule: "never compute the next date from the previous one - keep the **anchor**"
 ---
 
 # #0020 - A Billing Day That Shrinks

@@ -3,7 +3,7 @@ id: "0013"
 title: Distinct on a class without value equality
 category: linq
 tags: [LINQ, Distinct, equality]
-rule: "never dedupe objects that don't define equality"
+rule: "never dedupe objects that don't define **equality**"
 ---
 
 # #0013 - Distinct on a Class Without Value Equality

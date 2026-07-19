@@ -3,7 +3,7 @@ id: "0008"
 title: The N+1 query problem
 category: orm
 tags: [EFCore, SQL, performance]
-rule: "never query the database inside a loop"
+rule: "never query the **database** inside a **loop**"
 ---
 
 # #0008 - The N+1 Query Problem

@@ -3,7 +3,7 @@ id: "0006"
 title: A closure capturing the loop variable
 category: linq
 tags: [closures, lambdas, delegates]
-rule: "never close over a loop variable - capture a copy"
+rule: "never close over a **loop variable** - capture a copy"
 ---
 
 # #0006 - A Closure Capturing the Loop Variable

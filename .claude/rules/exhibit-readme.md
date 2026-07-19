@@ -18,8 +18,13 @@ rule: "never enumerate a LINQ query twice - materialize it once"
 ---
 ```
 
-- `rule` is the exhibit's commandment - lowercase `never ...`. It is copied
-  verbatim into the front-page list cell.
+- `rule` is the exhibit's commandment - lowercase `never ...`. It is the **only**
+  text the front page shows for this exhibit, so it has to stand alone.
+- **Emphasize the key words inside `rule`** so the front page is scannable:
+  `**bold**` for the domain concept (the thing the reader scans for), backticks
+  for real C# identifiers. One or two emphasized spans - not a bold soup.
+  Example: ``never mutate an object that serves as a **dictionary key**`` and
+  ``never write `async void` outside **event handlers**``.
 
 ## Section order (fixed)
 
@@ -70,6 +75,14 @@ we all wrote this at some point.
 The root README's exhibit list is **generated** - do not hand-edit it. After the
 exhibit exists, run `dotnet run tools/gen-frontpage.cs`; it rebuilds the
 per-hall lists and the stats line from `halls.md` and each exhibit's
-front-matter (`id`, `title`, `category`, `rule`). The front page stays minimal:
-manifesto, stats, the generated lists, nothing else - no "How to Run", no
-"Contributing", no disclaimer.
+front-matter (`id`, `category`, `rule`).
+
+Each line is the number as a link, then the commandment - no folder name, no
+title:
+
+```
+- [0004](src/collections/0004-dictionary-key-mutation/) never mutate an object that serves as a **dictionary key**
+```
+
+The front page stays minimal: manifesto, stats, the generated lists, nothing
+else - no "How to Run", no "Contributing", no disclaimer.

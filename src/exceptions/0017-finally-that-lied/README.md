@@ -3,7 +3,7 @@ id: "0017"
 title: A finally block that throws
 category: exceptions
 tags: [exceptions, finally, cleanup]
-rule: "never let a finally block throw"
+rule: "never let a `finally` block **throw**"
 ---
 
 # #0017 - A Finally Block That Throws

@@ -3,7 +3,7 @@ id: "0011"
 title: A mutable struct behind a readonly field
 category: value-types
 tags: [structs, readonly, defensive-copy]
-rule: "never write a mutable struct"
+rule: "never write a **mutable struct**"
 ---
 
 # #0011 - A Mutable Struct Behind a Readonly Field

@@ -3,7 +3,7 @@ id: "0018"
 title: Tasks mistaken for results
 category: async
 tags: [async, LINQ, Task, deferred-execution]
-rule: "never mistake a collection of tasks for a collection of results"
+rule: "never mistake a collection of **tasks** for a collection of **results**"
 ---
 
 # #0018 - Tasks Mistaken for Results
