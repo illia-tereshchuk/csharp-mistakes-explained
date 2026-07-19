@@ -1,37 +1,29 @@
 # TODO
 
-Numbered so we can refer to items fast ("do T3", "skip T7"). Two tracks:
-exhibits (content) and infra (the roadmap). Content first, per curator's
-call - a stocked museum sells better than empty CI.
+Remaining work, current as of the framework migration (2026-07-19).
 
-## Track A - exhibit batch (next)
+## Open
 
-Pull from `backlog.md` recommended batch. Assign ids at commit time.
+- **Relocate `claude-calibration/`.** The curator wants the setup fully
+  by-guidelines; this folder was freestyled. Decide the guideline-compliant home
+  for the memory files (state, backlog, rejected, archetypes, halls, todo) and
+  move them. *Pending curator's choice.*
+- **CI (GitHub Actions).** On push/PR: build/run every exhibit so they don't rot
+  on SDK bumps; run `next-id.cs`, `check-links.cs`, and `gen-frontpage.cs`
+  (fail if the front page is stale) - all three exit 1 on failure. Package
+  exhibits (EF, DI, STJ) need restore; watch CI time.
+- **Launch polish.** Badges (exhibit count), final proofread, LinkedIn poll copy
+  (<=30 chars, 4 options).
+- **Tags cross-index.** Once tags are consistent across exhibits, generate a
+  tag/archetype index alongside the front page.
 
-- **A1.** the-captive-scoped -> opens **di-lifetimes** hall, 🔴 flagship, `#:package` #2.
-- **A2.** ~~the-zero-priced-order~~ DONE as #0012 (2026-07-18).
-- **A3.** whenall-hides-exceptions -> async, 🔴.
-- **A4.** the-finally-that-lied -> exceptions, 🔴 (sibling of 0005).
-- **A5.** path-combine-betrayal -> opens **security** hall, 🔴.
-- **A6.** length-lies-about-emoji -> opens **strings-memory** hall, 🟡.
+## Done
 
-After A1-A6: 15 exhibits, 10 halls, first 🔴s in. Ready for a stronger LinkedIn launch.
-
-## Track B - infra roadmap (steps 8-10, not started)
-
-From the original 10-step plan; steps 1-7 done (env -> first exhibits -> playbook).
-
-- **B8. TOC generator.** Script reads every exhibit's front-matter (`id/title/category/level/summary`) and regenerates the front-page tables + stats line. Kills manual sync. Likely `tools/gen-toc.cs`. Also emit a tags/archetype cross-index once tags are populated. Run via CI on push.
-- **B9. CI (GitHub Actions).** On push/PR: `dotnet build` (or run) every exhibit so bad examples don't rot on SDK bumps; run `tools/next-id.cs` (dup numbers) and `tools/check-links.cs` (bare refs, dead links) - both already exit 1 on failure, so they drop straight into a workflow; optionally run B8 and fail if README is stale. Note: package exhibits (EF, DI) need restore; watch CI time.
-- **B10. Launch polish.** Badges (exhibit count, last added), issue templates OFF (solo repo), final proofread, LinkedIn poll copy (<=30 chars, 4 options - see chat history for the ironic set).
-
-## Track C - open decisions / parking lot
-
-- **C1.** ~~Commit / gitignore / push `claude-calibration/`?~~ RESOLVED 2026-07-17: committed public. Curator's call - "so obscure nobody looks anyway," and it fits the open "AI executes" brand. Backlog spoiler risk accepted.
-- **C2.** New halls to formalize when their first exhibit lands: add to the halls list in `.claude/skills/add-exhibit/SKILL.md`.
-- **C3.** LinkedIn poll extra ironic options - brainstormed set is in chat; not yet finalized.
-- **C4.** When tags matter (dozens of exhibits), backfill consistent `tags` across old exhibits so B8 cross-index is clean.
-
-## Done (for orientation)
-
-- Steps 1-7 of roadmap. Exhibits 0001-0009. next-id tool. playbook. Front-page redesign. Dash cleanup. This calibration folder.
+- Full framework migration to native Claude Code mechanisms: root `CLAUDE.md`,
+  path-scoped `.claude/rules/`, the `add-exhibit` / `propose-exhibits` /
+  `reject-exhibit` skills. Retired the homemade `conventions.md`,
+  `exhibit-recipe.md`, `playbook.md`.
+- Tools: `next-id.cs`, `check-links.cs`, `gen-frontpage.cs` (front page is now
+  generated, list-style, no difficulty levels).
+- Hall taxonomy expanded to ~30 in `halls.md`.
+- Exhibits 0001-0023.

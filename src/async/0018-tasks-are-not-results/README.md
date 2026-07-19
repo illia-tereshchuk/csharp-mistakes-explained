@@ -2,7 +2,6 @@
 id: "0018"
 title: Tasks mistaken for results
 category: async
-level: 🟡
 tags: [async, LINQ, Task, deferred-execution]
 summary: "`Select(async ...)` yields tasks, not results - the report says 5 sent, the counter says 0"
 rule: "never mistake a collection of tasks for a collection of results"

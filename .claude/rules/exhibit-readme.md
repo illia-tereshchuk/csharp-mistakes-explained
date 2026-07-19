@@ -13,7 +13,6 @@ paths:
 id: "0009"                 # quoted string, keeps leading zeros
 title: Enumerating a LINQ query twice
 category: linq             # == the hall folder name
-level: 🟡                  # bare emoji only - no words like "junior trap"
 tags: [LINQ, IEnumerable, deferred-execution]
 summary: "one line on what breaks - kept for the future index"
 rule: "never enumerate a LINQ query twice - materialize it once"
@@ -66,18 +65,11 @@ not the repo. The 💥 / 😈 / 🎓 section markers carry the personality; the 
 stays informative. **No shaming** - exhibits mock the code, never the author;
 we all wrote this at some point.
 
-## Front-page row (added to the root README, done with every exhibit)
+## Front page
 
-Under the hall's table (create the hall section if new). Tables are
-**headerless** - an empty header row keeps GitHub rendering them as tables:
-
-```
-| | | | |
-|--:|---|---|---|
-| 0009 | [Enumerating a LINQ query twice](src/linq/0009-multiple-enumeration/) | 🟡 | never enumerate a LINQ query twice - materialize it once |
-```
-
-Last column == the front-matter `rule`. The link sits on the **title**, not the
-number. Then bump the stats line:
-`**N** exhibits in **M** halls, latest addition - **#NNNN**`. The front page
-stays minimal - no "How to Run", no "Contributing", no disclaimer.
+The root README's exhibit list is **generated** - do not hand-edit it. After the
+exhibit exists, run `dotnet run tools/gen-frontpage.cs`; it rebuilds the
+per-hall lists and the stats line from `halls.md` and each exhibit's
+front-matter (`id`, `title`, `category`, `rule`). The front page stays minimal:
+manifesto, stats, the generated lists, nothing else - no "How to Run", no
+"Contributing", no disclaimer.

@@ -2,7 +2,6 @@
 id: "0013"
 title: Distinct on a class without value equality
 category: linq
-level: 🟡
 tags: [LINQ, Distinct, equality]
 summary: "`Distinct()` on a plain class compares references - the duplicates survive the dedupe"
 rule: "never dedupe objects that don't define equality"

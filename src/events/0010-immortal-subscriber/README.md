@@ -2,7 +2,6 @@
 id: "0010"
 title: A static event that never lets go
 category: events
-level: 🔴
 tags: [events, memory-leak, GC, WeakReference]
 summary: "a closed widget keeps reacting to events - the static event pins it in memory forever"
 rule: "never subscribe to a long-lived event without unsubscribing"

@@ -2,7 +2,6 @@
 id: "0012"
 title: A JSON payload that maps to nothing
 category: serialization
-level: 🟡
 tags: [System.Text.Json, deserialization, case-sensitivity]
 summary: "camelCase JSON meets PascalCase C# - every property lands on its default, nobody throws"
 rule: "never deserialize without pinning the naming contract"

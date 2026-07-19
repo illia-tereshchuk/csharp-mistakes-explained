@@ -2,7 +2,6 @@
 id: "0016"
 title: A cancellation token nobody reads
 category: async
-level: 🟡
 tags: [cancellation, CancellationToken, async]
 summary: "the token travels through every signature and is read by none - Cancel does nothing"
 rule: "never accept a token you don't pass down or check"

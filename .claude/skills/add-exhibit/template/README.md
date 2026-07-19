@@ -2,7 +2,6 @@
 id: "XXXX"
 title: Name the crime in a few words
 category: collections
-level: 🟢  # or 🟡 / 🔴
 tags: [TypeInvolved, MethodInvolved]
 summary: One line on what breaks and how much it hurts - kept for the future index.
 rule: "never <the commandment this exhibit teaches> - this goes to the front-page table"

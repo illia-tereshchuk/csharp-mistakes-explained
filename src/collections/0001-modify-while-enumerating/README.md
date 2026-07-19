@@ -2,7 +2,6 @@
 id: "0001"
 title: Modifying a collection while iterating
 category: collections
-level: 🟢
 tags: [List, foreach, InvalidOperationException]
 summary: foreach + Remove on the same list - partial execution and a crash.
 rule: "never modify a collection while iterating it"

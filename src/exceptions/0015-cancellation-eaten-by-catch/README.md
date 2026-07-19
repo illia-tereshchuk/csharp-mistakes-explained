@@ -2,7 +2,6 @@
 id: "0015"
 title: A catch-all that swallows cancellation
 category: exceptions
-level: 🟡
 tags: [cancellation, exceptions, retry]
 summary: "`catch (Exception)` treats a cancel as a failure - the retry loop hammers a cancelled job"
 rule: "never let a catch-all eat OperationCanceledException"

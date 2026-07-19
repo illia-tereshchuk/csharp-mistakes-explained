@@ -60,12 +60,17 @@ dotnet run tools/check-links.cs
 
 ## 7. Wire the front page and memory
 
-- Add the front-page row under the hall's table in the root `README.md` (format
-  in `exhibit-readme.md`), creating the hall section if the hall is new, and
-  bump the stats line.
-- Update `claude-calibration/state.md` (count, halls, exhibit table, next id)
-  and move the candidate out of `backlog.md` (to done, or to `rejected.md` with
-  a reason if it was dropped mid-build).
+- If the hall is new, flip its row in `claude-calibration/halls.md` from planned
+  to opened first.
+- Regenerate the front page - never hand-edit it:
+
+  ```bash
+  dotnet run tools/gen-frontpage.cs
+  ```
+
+- Update `claude-calibration/state.md` (count, exhibit table, next id) and move
+  the candidate out of `backlog.md` (to done, or to `rejected.md` with a reason
+  if it was dropped mid-build).
 
 ## 8. Hand off
 

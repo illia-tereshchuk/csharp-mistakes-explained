@@ -2,7 +2,6 @@
 id: "0006"
 title: A closure capturing the loop variable
 category: linq
-level: 🟢
 tags: [closures, lambdas, delegates]
 summary: "five callbacks, one shared `i` - every lambda reads the value after the loop ended"
 rule: "never close over a loop variable - capture a copy"

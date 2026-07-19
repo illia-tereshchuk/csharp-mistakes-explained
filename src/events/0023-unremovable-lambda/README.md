@@ -2,7 +2,6 @@
 id: "0023"
 title: Unsubscribing from an event with a lambda
 category: events
-level: 🟡
 tags: [events, delegates, lambdas, unsubscribe]
 summary: "the -= gets an identical-looking lambda, removes nothing, and the cancelled alert keeps firing"
 rule: "never unsubscribe with a lambda - name the handler"

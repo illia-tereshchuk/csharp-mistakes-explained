@@ -2,7 +2,6 @@
 id: "0017"
 title: A finally block that throws
 category: exceptions
-level: 🔴
 tags: [exceptions, finally, cleanup]
 summary: "a throw inside finally replaces the in-flight exception - the real cause never reaches the logs"
 rule: "never let a finally block throw"

@@ -2,7 +2,6 @@
 id: "0014"
 title: Transient disposables resolved from the root container
 category: di-lifetimes
-level: 🔴
 tags: [dependency-injection, IDisposable, lifetimes, memory-leak]
 summary: "the root container tracks every disposable it creates - 100 requests, 100 buffers pinned till shutdown"
 rule: "never resolve transient disposables from the root container"

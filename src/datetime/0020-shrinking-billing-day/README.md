@@ -2,7 +2,6 @@
 id: "0020"
 title: A billing day that shrinks
 category: datetime
-level: 🟡
 tags: [DateTime, AddMonths, recurrence]
 summary: "Jan 31 + a month = Feb 28, and every later date inherits the 28th - the anniversary never comes back"
 rule: "never compute the next date from the previous one - keep the anchor"

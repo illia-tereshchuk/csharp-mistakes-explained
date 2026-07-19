@@ -17,7 +17,7 @@ tag design, and the future cross-index. Each exhibit maps to 1-2.
 ## Why this matters at scale
 
 - Halls stop scaling around dozens: `the-collected-timer` is async OR memory; `interpolated-injection` is security OR orm. **Tags + archetype are the real navigation**, halls are just the shelf.
-- Balance target: don't stack one archetype. Track the mix; every batch should spread across archetypes and introduce at least one 🔴.
+- Balance target: don't stack one archetype. Track the mix; every batch should spread across archetypes.
 - Archetype 5 (silent wrongness) is the house style, usually the 😈 section rather than a standalone exhibit.
 
 ## Fear ladder (recurring rhetorical device)

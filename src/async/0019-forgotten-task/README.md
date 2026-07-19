@@ -2,7 +2,6 @@
 id: "0019"
 title: The fire-and-forgotten task
 category: async
-level: 🟡
 tags: [async, fire-and-forget, CS4014]
 summary: "an unawaited Task buries its exception - the save never happened and the logs are clean"
 rule: "never drop a Task - await it or hand it to someone who will"

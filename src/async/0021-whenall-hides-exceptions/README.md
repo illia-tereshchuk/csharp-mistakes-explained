@@ -2,7 +2,6 @@
 id: "0021"
 title: await Task.WhenAll shows only the first fault
 category: async
-level: 🔴
 tags: [async, Task.WhenAll, AggregateException]
 summary: "three tasks fail, await surfaces one - the other two hide in the task's AggregateException"
 rule: "never trust await Task.WhenAll to report more than one failure"

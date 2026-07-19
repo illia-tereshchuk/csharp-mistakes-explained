@@ -2,7 +2,6 @@
 id: "0009"
 title: Enumerating a LINQ query twice
 category: linq
-level: 🟡
 tags: [LINQ, IEnumerable, deferred-execution]
 summary: "the header counted 3 rows, the body printed 2 - each enumeration reruns the query"
 rule: "never enumerate a LINQ query twice - materialize it once"

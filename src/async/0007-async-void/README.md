@@ -2,7 +2,6 @@
 id: "0007"
 title: async void and the uncatchable exception
 category: async
-level: 🟡
 tags: [async, exceptions, fire-and-forget]
 summary: "an exception in `async void` sails past your try/catch and kills the process"
 rule: "never write `async void` outside event handlers"

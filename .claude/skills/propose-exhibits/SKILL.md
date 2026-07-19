@@ -28,7 +28,7 @@ Group candidates under their hall (the canonical hall list is
 hall). One line per candidate:
 
 ```
-slug  🟢/🟡/🔴  — the twist (the mechanic, not just the restated title)
+slug - the twist (the mechanic, not just the restated title)
 ```
 
 The description is the "wait, WHAT?" - the hook that makes it exhibit-worthy,

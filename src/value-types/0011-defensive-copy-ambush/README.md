@@ -2,7 +2,6 @@
 id: "0011"
 title: A mutable struct behind a readonly field
 category: value-types
-level: 🔴
 tags: [structs, readonly, defensive-copy]
 summary: "every method call on the readonly field runs on a hidden copy - points added, balance forever 0"
 rule: "never write a mutable struct"
