@@ -38,11 +38,18 @@ accordingly. The bar below is the current distillation.
 - **Reject predictable finales.** If the reader guesses the outcome from the
   title, it's a listicle item, not an exhibit. An exhibit needs a mechanic
   twist - a "wait, WHAT?" even for someone who knows the bug.
-- **Mind the floor and the ceiling.** This is a *popular* encyclopedia for
-  marketing and self-teaching, not senior deep-weeds. Below the floor: primer-
-  level bugs everyone knows from day one (integer overflow, null reference).
-  Above the ceiling: esoteric internals only seniors chase for big money
-  (lock-free memory barriers, IL rewriting, GC tuning). Aim for the middle band.
+- **Mind the floor and the ceiling.** A *popular* encyclopedia for marketing and
+  self-teaching. Floor: primer-level bugs everyone knows from day one (integer
+  overflow, null reference). Ceiling: not topic depth - deep topics are welcome -
+  but digestibility. Too high = can't be swallowed in ~10 minutes, or needs too
+  many non-obvious interconnected parts before you can even see where it
+  reproduces. Keep it graspable and relevant, leaving one memory: "you must not
+  do this."
+- **The sweet spot is a non-obvious puzzle that still reproduces.** The whole art
+  is the balance between primer and deep-weeds: enough of a head-scratcher to be
+  a puzzle, concrete enough to run and watch fail. That balance is subjective -
+  when a candidate is borderline, propose it and let the curator judge rather
+  than pre-cutting it.
 - **Prefer accessible + axiomatic:** everyday contracts everyone touches, with a
   rule that reads like an axiom (`never write async void outside event
   handlers`). Favor these over exotic API footguns.
