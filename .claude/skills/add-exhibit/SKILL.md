@@ -72,12 +72,8 @@ dotnet run tools/check-links.cs
 Leave the work uncommitted. Report the summary and the commit message
 `Add exhibit #NNNN: <slug>`. Commit only when the curator says so.
 
-## Halls (valid categories, with front-page emoji)
+## Halls
 
-🗂 collections · 🔢 numbers · 📦 value-types · 🔗 linq · ⚡ async · 🔔 events ·
-🗄 orm · 📄 serialization · 📅 datetime · 🧵 strings-memory · 💥 exceptions ·
-💉 di-lifetimes · 🔒 security
-
-Display names may expand on the front page (⚡ "Async & Threading", 🔗 "LINQ &
-Lambdas", 💉 "DI Lifetimes"). Opening a new hall: create the folder and add it
-to this list.
+Valid categories, their emoji, and open/planned status live in the canonical
+registry `claude-calibration/halls.md`. Pick the hall from there. Opening a
+planned hall: build its first exhibit, then flip its row from planned to opened.

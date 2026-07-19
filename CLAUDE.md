@@ -26,6 +26,12 @@ does the same job right, and a `README.md` that explains the mechanic.
 
 ## Curation bar (when proposing exhibits)
 
+The curator's taste is **subjective and case-by-case** - it lives in his
+individual picks and rejections, not in categories. The `reject-exhibit` skill
+and `claude-calibration/rejected.md` are the main channel for learning it: study
+which specific cases he declines and why, and pre-filter future proposals
+accordingly. The bar below is the current distillation.
+
 - **One exhibit = one broken mental model.** Not a typo, not a whole
   architecture review. If explaining it needs two different "why"s, it's two
   exhibits.

@@ -23,8 +23,9 @@ names the specific cases to build, then the `add-exhibit` skill builds each one.
 
 ## Format (grouped by hall)
 
-Group candidates under their hall. Mark unopened halls (a candidate there opens
-a new hall). One line per candidate:
+Group candidates under their hall (the canonical hall list is
+`claude-calibration/halls.md`). Mark planned halls (a candidate there opens the
+hall). One line per candidate:
 
 ```
 slug  🟢/🟡/🔴  — the twist (the mechanic, not just the restated title)

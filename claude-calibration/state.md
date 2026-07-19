@@ -35,13 +35,12 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
 ## Halls
 
-- **Open (11):** collections, numbers, async, linq, exceptions, orm, events, value-types, serialization, di-lifetimes, datetime
-- **Closed, planned:** strings-memory, security
+**11 opened**, the rest planned. Full registry (slugs, emoji, status) is in
+`halls.md` - the encyclopedia taxonomy expanded to ~30 halls on 2026-07-19.
 
 ## Level mix
 
 - 🟢 4 | 🟡 13 | 🔴 6  ->  async hall is at 7 exhibits (biggest); favor other halls next.
-- Only strings-memory remains unopened (length-lies-about-emoji / mojibake-factory).
 
 ## Infra status
 
