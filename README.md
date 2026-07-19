@@ -1,6 +1,6 @@
 # C# Bad Practices
 
-> Museum stats: **21** exhibits in **11** halls, latest addition - **#0021**.
+> Museum stats: **22** exhibits in **11** halls, latest addition - **#0022**.
 
 ### 🗂 Collections
 
@@ -65,6 +65,7 @@
 | | | | |
 |--:|---|---|---|
 | 0014 | [Transient disposables resolved from the root container](src/di-lifetimes/0014-container-hoarder/) | 🔴 | never resolve transient disposables from the root container |
+| 0022 | [A singleton that captured a scoped dependency](src/di-lifetimes/0022-the-captive-scoped/) | 🔴 | never inject a scoped service into a singleton |
 
 ### 📄 Serialization
 

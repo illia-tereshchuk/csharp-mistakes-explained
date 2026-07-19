@@ -43,7 +43,6 @@ myths · rethrow across await boundaries._
 ### di-lifetimes (hall opened by #0014)
 | slug | lvl | A | twist |
 |------|:--:|:--:|-------|
-| the-captive-scoped | 🔴 | 6 | singleton captures scoped -> "current user" frozen; B sees A's cart. Still the batch flagship. |
 | the-silent-override | 🟡 | 4 | two registrations of one iface; last wins silently. |
 
 ### security (closed)
