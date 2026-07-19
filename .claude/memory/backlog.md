@@ -21,7 +21,6 @@ timing, not dependent on an unpinned machine environment.
 ### numbers
 | slug | A | the twist |
 |------|:--:|---|
-| math-round-banker | 4 | `Math.Round(2.5)` is 2, not 3 - banker's rounding by default, and the invoice total drifts from the accountant's paper math. *Curator questioned it as primer-level; discussion pending.* |
 | nan-poisons-comparison | 4 | One NaN and Max, sorting and `>=` filters all disagree, because NaN is not equal to itself. |
 
 ### async
