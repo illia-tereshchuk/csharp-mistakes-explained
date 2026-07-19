@@ -2,8 +2,8 @@
 
 _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
-- Exhibits: **20** | Halls: **11** | Next free id: **0021**
-- Last updated after: #0020 (2026-07-18)
+- Exhibits: **21** | Halls: **11** | Next free id: **0022**
+- Last updated after: #0021 (2026-07-18)
 
 ## Exhibits shipped
 
@@ -29,6 +29,7 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 | 0018 | async | tasks-are-not-results | 🟡 | 1,5 |
 | 0019 | async | forgotten-task | 🟡 | 1,5 |
 | 0020 | datetime | shrinking-billing-day | 🟡 | 5 |
+| 0021 | async | whenall-hides-exceptions | 🔴 | 5 |
 
 ## Halls
 
@@ -37,7 +38,7 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
 ## Level mix
 
-- 🟢 4 | 🟡 12 | 🔴 4  ->  async hall is at 6 exhibits; favor other halls + 🔴 next.
+- 🟢 4 | 🟡 12 | 🔴 5  ->  async hall is at 7 exhibits (biggest); favor other halls next.
 
 ## Infra status
 
