@@ -77,7 +77,6 @@ timing, not dependent on an unpinned machine environment.
 | inheritance | virtual-call-in-constructor | 1 | The base constructor calls an override that runs before the derived fields exist; the object sees its own state as null. |
 | pattern-matching | switch-expression-not-exhaustive | 5 | One added enum member turns a compile-time warning into a runtime exception in a switch that "covered everything". |
 | records | with-copies-the-reference | 3 | `with` returns a new record sharing the same List; editing the "copy" changes the original. |
-| equality | null-comparisons-are-always-false | 4 | For nullable numbers both `x > 5` and `x <= 5` are false when x is null; two opposite filters together drop rows. |
 | boxing | mutating-a-boxed-struct | 3 | Calling a mutating method through an interface changes the box, not your variable. |
 | memory | the-closure-that-held-everything | 6 | A lambda that captured one small variable keeps the whole captured state alive, big array included. |
 | http | baseaddress-eats-your-path | 4 | A BaseAddress without a trailing slash silently drops its last segment: every `/v1/users` call goes to `/users`. Pure Uri math, no server. |

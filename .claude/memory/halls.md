@@ -26,6 +26,7 @@ per hall. New halls: add a row here first.
 | di-lifetimes | 💉 | DI Lifetimes |
 | datetime | 📅 | Datetime |
 | disposal | 🗑️ | Disposal |
+| equality | ⚖️ | Equality |
 
 ## Planned - language mechanics
 
@@ -37,7 +38,6 @@ per hall. New halls: add a row here first.
 | inheritance | 🪆 | Inheritance |
 | pattern-matching | 🧩 | Pattern Matching |
 | records | 📇 | Records |
-| equality | ⚖️ | Equality |
 
 ## Planned - runtime & resources
 

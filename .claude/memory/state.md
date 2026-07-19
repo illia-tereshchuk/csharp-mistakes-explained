@@ -2,8 +2,8 @@
 
 _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
-- Exhibits: **26** | Halls: **12** | Next free id: **0027**
-- Last updated after: #0026 (2026-07-19)
+- Exhibits: **27** | Halls: **13** | Next free id: **0028**
+- Last updated after: #0027 (2026-07-19)
 
 ## Exhibits shipped
 
@@ -35,10 +35,11 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 | 0024 | serialization | polymorphic-loses-derived | 4,5 |
 | 0025 | numbers | math-round-banker | 4 |
 | 0026 | disposal | dispose-what-you-dont-own | 5 |
+| 0027 | equality | null-comparisons-are-always-false | 4,5 |
 
 ## Halls
 
-**12 opened**, the rest planned. Full registry (slugs, emoji, status) is in
+**13 opened**, the rest planned. Full registry (slugs, emoji, status) is in
 `halls.md` - the encyclopedia taxonomy expanded to ~30 halls on 2026-07-19.
 
 ## Infra status
