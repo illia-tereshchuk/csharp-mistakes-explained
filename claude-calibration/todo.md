@@ -22,7 +22,7 @@ After A1-A6: 15 exhibits, 10 halls, first 🔴s in. Ready for a stronger LinkedI
 From the original 10-step plan; steps 1-7 done (env -> first exhibits -> playbook).
 
 - **B8. TOC generator.** Script reads every exhibit's front-matter (`id/title/category/level/summary`) and regenerates the front-page tables + stats line. Kills manual sync. Likely `tools/gen-toc.cs`. Also emit a tags/archetype cross-index once tags are populated. Run via CI on push.
-- **B9. CI (GitHub Actions).** On push/PR: `dotnet build` (or run) every exhibit so bad examples don't rot on SDK bumps; run `tools/next-id.cs` to fail on dup numbers; optionally run B8 and fail if README is stale. Note: package exhibits (EF) need restore; watch CI time.
+- **B9. CI (GitHub Actions).** On push/PR: `dotnet build` (or run) every exhibit so bad examples don't rot on SDK bumps; run `tools/next-id.cs` (dup numbers) and `tools/check-links.cs` (bare refs, dead links) - both already exit 1 on failure, so they drop straight into a workflow; optionally run B8 and fail if README is stale. Note: package exhibits (EF, DI) need restore; watch CI time.
 - **B10. Launch polish.** Badges (exhibit count, last added), issue templates OFF (solo repo), final proofread, LinkedIn poll copy (<=30 chars, 4 options - see chat history for the ironic set).
 
 ## Track C - open decisions / parking lot

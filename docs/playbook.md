@@ -38,6 +38,15 @@ reverse-engineer the process from old commits.
    dotnet run Good.cs   # works
    ```
 
+   Then, from the repo root, check the wiring:
+
+   ```bash
+   dotnet run tools/check-links.cs   # cross-references are links, links resolve
+   ```
+
+   Cross-references to other exhibits are written as
+   `[NNNN-slug](../../<hall>/<NNNN-slug>/)`, never as a bare `#NNNN`.
+
 7. **Update the front page**: the exhibit row in the right hall's table and
    the stats line *(temporary - a generator will take this over)*.
 

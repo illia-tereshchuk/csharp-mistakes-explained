@@ -46,4 +46,5 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 ## Infra status
 
 - `tools/next-id.cs` - live (counts folders, flags dup numbers, exit 1).
+- `tools/check-links.cs` - live (bare #NNNN refs + dead relative links, exit 1). Run before every exhibit commit.
 - Roadmap steps 8-10 (TOC generator, CI, polish) - NOT started. See `todo.md`.
