@@ -53,7 +53,6 @@ timing, not dependent on an unpinned machine environment.
 ### serialization
 | slug | A | the twist |
 |------|:--:|---|
-| datetime-kind-round-trip | 4 | A Local timestamp goes into JSON and comes back as something else: the value survives, the meaning does not. |
 
 ### di-lifetimes
 | slug | A | the twist |
