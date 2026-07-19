@@ -27,7 +27,6 @@ timing, not dependent on an unpinned machine environment.
 | slug | A | the twist |
 |------|:--:|---|
 | the-collected-timer | 6 | A Timer with no stored reference gets collected mid-run; the "every minute" job stops with no error. |
-| lock-on-a-string | 2 | Two unrelated classes locking on "cache" share one lock through string interning; prove it with ReferenceEquals. |
 | semaphore-never-released | 5 | An exception between Wait and Release leaks a permit forever; the next caller waits on a semaphore nobody will free. |
 
 ### events
@@ -79,7 +78,6 @@ timing, not dependent on an unpinned machine environment.
 | pattern-matching | switch-expression-not-exhaustive | 5 | One added enum member turns a compile-time warning into a runtime exception in a switch that "covered everything". |
 | records | with-copies-the-reference | 3 | `with` returns a new record sharing the same List; editing the "copy" changes the original. |
 | equality | null-comparisons-are-always-false | 4 | For nullable numbers both `x > 5` and `x <= 5` are false when x is null; two opposite filters together drop rows. |
-| disposal | dispose-what-you-dont-own | 5 | Wrapping an injected service in `using` breaks it for everyone else: you freed what wasn't yours. |
 | boxing | mutating-a-boxed-struct | 3 | Calling a mutating method through an interface changes the box, not your variable. |
 | memory | the-closure-that-held-everything | 6 | A lambda that captured one small variable keeps the whole captured state alive, big array included. |
 | http | baseaddress-eats-your-path | 4 | A BaseAddress without a trailing slash silently drops its last segment: every `/v1/users` call goes to `/users`. Pure Uri math, no server. |

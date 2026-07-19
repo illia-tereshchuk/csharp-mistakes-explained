@@ -25,6 +25,7 @@ per hall. New halls: add a row here first.
 | serialization | 📄 | Serialization |
 | di-lifetimes | 💉 | DI Lifetimes |
 | datetime | 📅 | Datetime |
+| disposal | 🗑️ | Disposal |
 
 ## Planned - language mechanics
 
@@ -42,7 +43,6 @@ per hall. New halls: add a row here first.
 
 | slug | emoji | front-page name |
 |------|:--:|---|
-| disposal | 🗑️ | Disposal |
 | boxing | 🥊 | Boxing |
 | reflection | 🪞 | Reflection |
 | memory | 💾 | Memory |

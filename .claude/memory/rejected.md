@@ -13,6 +13,7 @@ in the "reason" column; they encode the curation bar.
 | StringBuilder-in-a-loop | proven only by timing | "trust me it's slow" is banned; timings flicker across machines. |
 | quadratic ElementAt | proven only by timing | same. |
 | culture/timezone bug w/o pinning | CI would lie | if the code doesn't pin culture/zone, the demo's outcome depends on the runner. Only ship if the code fixes the environment explicitly. |
+| lock-on-a-string | doesn't happen in real code | "nobody in their right mind locks on a string when every tutorial screams to lock on a dedicated object." The literal-string version is textbook-warning material, not production code. The realistic cousin (lock on a runtime string, which locks nothing because runtime strings are not interned) was offered too and also declined. |
 | sort-is-unstable | no real damage | "in a normal system this practically never breaks anything." Swapping two elements that compare equal loses nothing you asked to preserve; the mechanic is real (List.Sort is stable up to 16 elements, unstable from 17) but the consequence isn't worth an exhibit. |
 | firstordefault-on-structs | premise doesn't hold | "nobody null-checks a struct - nonsense." He is right, and stronger than that: `found == null` does not even compile for a non-nullable struct, so the bug as I framed it cannot happen. My framing dressed a real nuance (default(T) is zeros, not null) in an impossible scenario. |
 
