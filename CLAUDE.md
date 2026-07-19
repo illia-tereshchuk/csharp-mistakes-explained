@@ -38,9 +38,17 @@ accordingly. The bar below is the current distillation.
 - **Reject predictable finales.** If the reader guesses the outcome from the
   title, it's a listicle item, not an exhibit. An exhibit needs a mechanic
   twist - a "wait, WHAT?" even for someone who knows the bug.
+- **Mind the floor and the ceiling.** This is a *popular* encyclopedia for
+  marketing and self-teaching, not senior deep-weeds. Below the floor: primer-
+  level bugs everyone knows from day one (integer overflow, null reference).
+  Above the ceiling: esoteric internals only seniors chase for big money
+  (lock-free memory barriers, IL rewriting, GC tuning). Aim for the middle band.
 - **Prefer accessible + axiomatic:** everyday contracts everyone touches, with a
   rule that reads like an axiom (`never write async void outside event
   handlers`). Favor these over exotic API footguns.
+- **A bug must answer who / where / how.** If you can't say who hits it, from
+  where, and how, it's a vacuum example - not reproducible in any real context,
+  so not interesting (this is why path-combine-betrayal was cut).
 - **Prefer silent-wrongness and money/audit stakes** - they screenshot well and
   land emotionally.
 

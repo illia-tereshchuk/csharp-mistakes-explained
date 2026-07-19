@@ -8,7 +8,7 @@ in the "reason" column; they encode the curation bar.
 |-----------|-----------------|--------|
 | turkish-i-login | too banal / primer-level | everyone typed a password in the wrong keyboard layout as a kid - common knowledge from the moment you touch a computer, below the museum's floor. |
 | int-overflow-in-cart | too banal / primer-level | every junior has already hit integer overflow; it's a primer, not an exhibit - people know it before they're paid to code. |
-| path-combine-betrayal | doesn't happen in real code | author's call: the absolute-path-discards-root scenario isn't something he sees in real projects. Built and reverted at #0021 before commit. |
+| path-combine-betrayal | vacuum example / no who-where-how | you can't say who attacks, from where, or how - a vacuum scenario with no reproducible real-world context, so not interesting. Built and reverted at #0021 before commit. |
 | .Result deadlock | cannot reproduce honestly | needs a SynchronizationContext (UI/legacy ASP.NET); a console app can't show it. Rule: no exhibit that doesn't reproduce. |
 | StringBuilder-in-a-loop | proven only by timing | "trust me it's slow" is banned; timings flicker across machines. |
 | quadratic ElementAt | proven only by timing | same. |
