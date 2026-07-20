@@ -8,12 +8,14 @@ end up with your username on the front page next to the rule you added.
 
 - [.NET 10 SDK](https://dotnet.microsoft.com/download)
 - [Claude Code](https://claude.com/claude-code)
-- Push access to this repo - ask the maintainer, it takes him one click
+- A GitHub account (Claude forks the repo for you if you need it)
 
 ## How it goes
 
 1. Clone the repo and run `claude` inside the folder.
 2. Tell it: **"I want to add an exhibit."**
+
+Stopping halfway? `claude -c` picks the conversation back up where you left it.
 
 That is the whole setup. From there Claude checks your tooling, shows you a menu
 of C# mistakes waiting to be built, drafts the first version with you, runs

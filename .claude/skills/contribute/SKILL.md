@@ -12,9 +12,14 @@ tedious parts for them.
 
 ## 0. Resume before you start
 
-A fresh session has no memory of yesterday's chat, but the disk remembers. Run
-`git status` first: if there is a half-built exhibit folder under `src/`, say so
-and continue that one instead of starting over.
+If they are coming back to unfinished work, the fastest path is `claude -c`,
+which continues the most recent conversation in this folder (`claude -r` picks
+from older ones). Mention it if they mention stopping yesterday.
+
+Either way, check the disk: run `git status` first, and if a half-built exhibit
+folder exists under `src/`, say so and continue that one instead of starting
+over. A newcomer who just types `claude` lands in a fresh session, and the files
+are what carry the work across.
 
 ## 1. Preflight (do this before anything else)
 
@@ -22,18 +27,20 @@ Three failures cost a beginner twenty minutes each if they surface late. Check
 all of them now, quietly, and fix what you can:
 
 ```bash
-dotnet --list-sdks                 # need .NET 10
-gh auth status                     # need a logged-in GitHub CLI
-git remote -v && git branch --show-current
+dotnet --list-sdks                                        # need .NET 10
+gh auth status                                            # need a logged-in gh
+gh repo view --json viewerPermission -q .viewerPermission # WRITE/ADMIN or not
 ```
 
 - **No .NET 10** - point them at https://dotnet.microsoft.com/download and stop.
 - **`gh` not authenticated** - have them run `gh auth login` now, not at the end.
-- **On `main`** - create the working branch immediately:
-  `git switch -c exhibit/<slug>`. Never build on `main`.
-- **No push access** - they need to be a collaborator on the repo. If a push
-  would fail, tell them to ask the maintainer for access before they invest an
-  evening.
+- **Where the branch goes** - decide this for them, do not make them choose:
+  - `WRITE` or `ADMIN`: they are a collaborator, so work right here.
+  - anything else: fork first with `gh repo fork --remote=true`, which clones
+    the fork and wires the remotes. A pull request from a fork is the normal
+    open-source path and needs no permission from anyone.
+- **Never build on `main`** - create the branch immediately either way:
+  `git switch -c exhibit/<slug>`.
 
 ## 2. Offer the menu
 
@@ -111,6 +118,9 @@ Commit (subject `Add exhibit #NNNN: <slug>`), push the branch, open the PR:
 git push -u origin exhibit/<slug>
 gh pr create --fill
 ```
+
+`gh pr create` targets this repository whether the branch lives here or in their
+fork - the fork case needs no extra flags.
 
 Walk them through each command if it is their first time. Then set expectations:
 the maintainer reviews every exhibit personally and may ask for changes or
