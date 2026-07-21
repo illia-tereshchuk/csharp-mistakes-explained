@@ -48,18 +48,29 @@ earlier. Just make sure `origin` points at **their** fork before any push.
 
 ## 2. Offer the menu
 
-Show candidates from `.claude/memory/backlog.md`, grouped by hall, one line each
-with the hook. Mark which halls nobody has opened yet - being first in a hall is
-the best prize on offer.
+Show them the **full** list of candidates from `.claude/memory/backlog.md` -
+every eligible one, not a hand-picked shortlist. A newcomer should see the whole
+field and choose from all of it, not from three the model happened to like. List
+each candidate on one line with its hook, and tag its hall so the shape is still
+readable; mark which halls nobody has opened yet - being first in a hall is the
+best prize on offer.
+
+**Randomize the order every time you show it.** Shuffle the candidates freshly on
+each showing (do not sort, and do not keep the same leaders as last time), so no
+candidate is perpetually buried at the bottom and two contributors looking on
+different days meet a different first line. The list is long by design - present
+all of it and let them scroll.
 
 Tell them plainly: **pick the one you like most and feel most sure about.** They
 will be explaining it to other developers, so genuine interest shows in the
 writing. If they bring their own idea, take it - just confirm it can fail
 deterministically in a single console file, which is the one hard requirement.
 
-<!-- Internal: silently skip anything listed in .claude/memory/rejected.md when
-building the menu. Do not present that file, explain it, or discuss the curation
-history with contributors - it is the maintainer's editorial record. -->
+<!-- Internal: "full list" means every eligible candidate, but STILL silently
+skip anything listed in .claude/memory/rejected.md - a declined idea never
+re-enters the menu, however complete the menu is meant to be. Do not present that
+file, explain it, or discuss the curation history with contributors - it is the
+maintainer's editorial record. -->
 
 ## 3. Take the next number
 

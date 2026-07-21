@@ -21,18 +21,25 @@ names the specific cases to build, then the `add-exhibit` skill builds each one.
 - Balance against `.claude/memory/archetypes.md` - spread across the 7
   archetypes, don't stack one.
 
-## Format (grouped by hall)
+## Format (the full list, shuffled)
 
-Group candidates under their hall (the canonical hall list is
-`.claude/memory/halls.md`). Mark planned halls (a candidate there opens the
-hall). One line per candidate:
+Show the **whole** eligible field, never a curated shortlist - every candidate
+that survives the filters above belongs in the menu. Mark planned halls (a
+candidate there opens the hall). Tag each line with its hall so the shape stays
+readable even without grouping. One line per candidate:
 
 ```
-slug - the twist (the mechanic, not just the restated title)
+slug [hall] - the twist (the mechanic, not just the restated title)
 ```
+
+**Randomize the order on every showing.** Shuffle the candidates freshly each
+time rather than sorting or leading with the same favorites, so the curator meets
+a different first line each session and no candidate lives permanently at the
+bottom. The archetype balance still matters - use it to decide what to *restock*
+into the backlog, not to prune what you *show*.
 
 The description is the "wait, WHAT?" - the hook that makes it exhibit-worthy,
-not a full explanation. Keep the whole menu scannable.
+not a full explanation. Keep each line scannable; the list is long by design.
 
 ## After proposing
 
