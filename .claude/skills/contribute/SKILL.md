@@ -116,15 +116,27 @@ moment the work becomes theirs.
 
 ## 6. Ship it
 
-Commit (subject `Add exhibit #NNNN: <slug>`), push the branch, open the PR:
+Commit under their own git identity - subject `Add exhibit #NNNN: <slug>`. Their
+name reaches the front page through the front-matter `author` field, not the git
+author, so their normal git config is exactly right; don't override it. Then push
+the branch to their fork and open the PR against the maintainer's repo:
 
 ```bash
 git push -u origin exhibit/<slug>
-gh pr create --fill
+gh pr create --fill                 # fills title/body from the commit; targets upstream
 ```
 
-`gh pr create` opens the pull request from their fork against this repository -
-no extra flags needed, and no access to this repo required at any point.
+From a fork clone, `gh pr create` opens the PR from their fork against the
+upstream repository - they need no access to this repo at any point. Two things
+that actually happen in practice:
+
+- **If gh prompts for the base repo, or picks the wrong one, pin it:**
+  `gh pr create --repo <upstream-owner>/<repo> --base main --fill`.
+- **GitHub's API occasionally answers 5xx** (a `502 Bad Gateway` on
+  `gh pr create` is not their fault) - just run the same command again.
+
+Before pushing, a quick `git remote -v` confirms `origin` is **their** fork, not
+the upstream - pushing to the wrong remote is the classic first-timer slip.
 
 Walk them through each command if it is their first time. Then set expectations:
 the maintainer reviews every exhibit personally and may ask for changes or
