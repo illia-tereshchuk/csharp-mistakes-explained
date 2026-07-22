@@ -1,12 +1,13 @@
 ---
 name: propose-exhibits
-description: Generate a menu of candidate exhibits for the curator to choose from, grouped by hall, each with a one-line hook. Use when the curator asks "what next", wants options to pick from, wants to restock the backlog, or wants to see coverage across halls.
+description: Generate a menu of candidate exhibits for the curator or a contributor to choose from, grouped by hall with its emoji badge, each with a one-line hook. Use when the curator asks "what next", wants options to pick from, wants to restock the backlog, or wants to see coverage across halls.
 ---
 
 # Propose exhibits
 
-Produce a menu the curator picks from. This skill only *proposes* - the curator
-names the specific cases to build, then the `add-exhibit` skill builds each one.
+Produce a menu someone picks from. This skill only *proposes* - the curator
+names the specific cases to build, then the `add-exhibit` skill builds each
+one. Outside developers see the same menu through the `contribute` skill.
 
 ## Sources and filters
 
@@ -14,28 +15,53 @@ names the specific cases to build, then the `add-exhibit` skill builds each one.
 - **Exclude everything in `.claude/memory/rejected.md`** - never re-propose a
   declined idea, and pre-filter anything that trips its reason categories
   (predictable finale, can't reproduce, timing-only, CI-would-lie,
-  doesn't-happen-in-real-code).
+  doesn't-happen-in-real-code, premise-doesn't-hold, no-real-damage).
+  If a backlog row has since landed in `rejected.md`, delete the row - the
+  two files must never disagree.
 - Apply the curation bar from `CLAUDE.md`: one broken mental model, reject
   predictable finales, prefer accessible + axiomatic, prefer silent-wrongness /
   money stakes.
 - Balance against `.claude/memory/archetypes.md` - spread across the 7
   archetypes, don't stack one.
+- **When restocking `backlog.md`:** follow the entry format specified at the
+  top of that file, and run every new candidate's core premise as real code
+  before adding it (record the result in the entry's **Verified** field).
+  Two past rejections were premise errors that a 20-line scratchpad run
+  would have caught - never trust a mechanic from memory.
 
-## Format (grouped by hall)
+## Format (hall-grouped, badged)
 
-Group candidates under their hall (the canonical hall list is
-`.claude/memory/halls.md`). Mark planned halls (a candidate there opens the
-hall). One line per candidate:
+The menu has two audiences: the curator restocking, and a first-time
+contributor picking their exhibit. Both must be able to scan it and land on
+"their" mistake without knowing the museum's internals.
 
-```
-slug - the twist (the mechanic, not just the restated title)
-```
+- Group candidates under their hall. Every hall header carries the hall's
+  emoji badge and display name **exactly as registered in
+  `.claude/memory/halls.md`** - the badges are the navigation, never invent
+  or swap them.
+- Two tiers, in this order:
+  1. **Opened halls** - candidates joining an existing hall.
+  2. **New halls 🚪** - planned halls; picking a candidate there opens the
+     hall. Say so plainly: being first in a hall is the best prize on offer.
+- One line per candidate:
 
-The description is the "wait, WHAT?" - the hook that makes it exhibit-worthy,
-not a full explanation. Keep the whole menu scannable.
+  ```
+  **slug** - the twist (the mechanic, not a restated title)
+  ```
+
+  Use the candidate's **Twist** field from `backlog.md` verbatim - it is
+  written to be the menu line. The rest of the entry (Mechanic, Who hits it,
+  Repro, Damage, Verified) is builder context: keep it out of the menu, but
+  read it before answering questions about a candidate.
+- Skip halls with no candidates - the menu shows choices, not gaps. Mention
+  empty halls only when the curator asks about coverage.
+- Archetype numbers stay internal: use them to balance the batch, never
+  print them in the menu.
+- Keep each tier scannable in about one screenful.
 
 ## After proposing
 
-Stop and let the curator select. Do not start building. When cases are named,
-switch to `add-exhibit` for each. Move chosen ideas out of `backlog.md` as they
-ship; add declined ones to `rejected.md` with a reason.
+Stop and let the picker select. Do not start building. When cases are named,
+switch to `add-exhibit` (or continue `contribute` for an outside developer).
+Move chosen ideas out of `backlog.md` as they ship; add declined ones to
+`rejected.md` with a reason.
