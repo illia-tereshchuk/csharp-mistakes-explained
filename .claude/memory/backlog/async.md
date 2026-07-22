@@ -50,32 +50,6 @@
   recovers in seconds, your process never does.
 - **Verified:** follows directly from SemaphoreSlim semantics; verify at build.
 
-### parallel-foreach-async-lie (A1,5)
-
-- **Twist:** Parallel.ForEach happily accepts an async lambda as async void:
-  the loop "completes" before any body finishes, reports success, and has
-  processed exactly nothing.
-- **Mechanic:** `Parallel.ForEach` takes `Action<T>`; an async lambda
-  converts to async void. An async void method returns to its caller at the
-  first `await`, so ForEach sees every invocation "finish" instantly and
-  returns. The real work continues unobserved on the thread pool; its
-  exceptions are async-void exceptions (see #0007) and can kill the process
-  later.
-- **Who hits it:** "make this loop of API calls parallel" - the most common
-  wrong answer to that request. Compiles clean, no warning, looks concurrent.
-- **Repro:** the body awaits a gate (`TaskCompletionSource`) and only then
-  increments a counter. Assert the counter is 0 on the line *after*
-  Parallel.ForEach returns and print "batch finished OK" - then open the gate
-  and show the work trickling in after "success". The TCS gate makes it fully
-  deterministic - no sleeps, no races. No packages.
-- **Damage:** the batch reports success having done nothing yet; failures are
-  unobservable; and the "processed" items may still be mid-flight when the
-  process exits, losing them entirely.
-- **😈 seed:** Good.cs is `Parallel.ForEachAsync` (.NET 6+) - the fix has
-  existed the whole time, one identifier away.
-- **Verified:** ran on .NET 10 (2026-07-22): ForEach returned with 0 of 5
-  items processed.
-
 ### the-cached-failure (A1,5)
 
 - **Twist:** Lazy&lt;Task&gt; caches the task, not the value: one transient
@@ -200,8 +174,8 @@
   await the outer - flag is still false; only `Unwrap()`/awaiting the inner
   task observes the real work. Gate makes it deterministic, no packages.
 - **Damage:** "completed" batches with zero work done and inner-task
-  exceptions unobserved - the same lie as parallel-foreach-async-lie
-  wearing a more respectable API.
+  exceptions unobserved - the same lie as exhibit #0031
+  (parallel-foreach-swallows-async) wearing a more respectable API.
 - **Verified:** ran on .NET 10 (2026-07-22): outer task completed with the
   work provably not done.
 
