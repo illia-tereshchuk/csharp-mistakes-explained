@@ -189,8 +189,7 @@
   ThreadLocal and [ThreadStatic] belong to the physical thread, so the
   async flow walks away from its own state - and the next unrelated work
   item scheduled onto the OLD thread inherits it. AsyncLocal is the
-  flow-following twin (with its own trap: writes flow down the async call
-  tree, never back up).
+  flow-following twin; its own trap is `asynclocal-never-flows-up` below.
 - **Who hits it:** per-request ambient state written pre-async and still
   running: current user, current tenant, thread-keyed caches and buffers.
 - **Repro:** BUILDER WARNING - the naive `await Task.Yield()` demo does NOT
@@ -348,6 +347,107 @@
   which is exactly why staging never reproduces it.
 - **Verified:** ran on .NET 10 (2026-07-22): pinned pool, 3-second budget,
   both workers wedged, no progress.
+
+### asynclocal-never-flows-up (A3,4)
+
+- **Twist:** the helper sets the AsyncLocal "current tenant" and returns -
+  and the caller still sees the old value: ambient async state flows down
+  the call tree, never up. Delete the `async` keyword from the same method
+  and the write suddenly sticks.
+- **Mechanic:** AsyncLocal lives in the ExecutionContext; an async method
+  runs under a captured copy and the caller's context is restored when it
+  returns, so writes inside are edits to a private copy. A sync callee
+  runs on the caller's context and its write persists. The verified
+  triple: sync callee sticks; async-with-await evaporates; and - the evil
+  one - an async method that completes *synchronously* (await
+  Task.CompletedTask, no thread hop anywhere) ALSO evaporates. The
+  keyword alone, not any actual concurrency, decides the write's fate.
+- **Who hits it:** ambient-context infrastructure - tenant, correlation
+  id, current-user setters called as helpers: `await SetTenantAsync(id)`
+  compiles, runs, logs the new value inside, and changes nothing for the
+  next line of the caller. Also the refactor direction: making a sync
+  context-setter async "for consistency" silently breaks every caller.
+- **Repro:** one AsyncLocal, three callees with the same body (sync,
+  async + Yield, async + CompletedTask); print the caller's view after
+  each: sticks, evaporates, evaporates. Deterministic, no packages.
+- **Damage:** requests processed under the wrong tenant or correlation
+  id - the setter provably ran, so the investigation trusts it; the write
+  worked everywhere except where anyone looks.
+- **COORDINATION:** threadlocal-doesnt-follow (above) is the
+  physical-thread twin and links here. Two broken models: the thread
+  doesn't follow the flow / the flow doesn't report back up.
+- **😈 seed:** the workaround people find - return the value and reassign
+  in the caller - dies the day one more async layer appears in between;
+  the only stable pattern is writing the AsyncLocal at the top of the
+  flow, and nothing enforces that.
+- **Verified:** ran on .NET 10 (2026-07-24): sync write persisted; async
+  write visible inside, gone in the caller; sync-completing async write
+  also gone.
+
+### the-uncancellable-stream (A5)
+
+- **Twist:** `await foreach (... in Stream().WithCancellation(token))`
+  reads like a cancellable loop - and the token goes precisely nowhere:
+  without an [EnumeratorCancellation] parameter on the iterator,
+  WithCancellation is a silent no-op.
+- **Mechanic:** WithCancellation hands the token to GetAsyncEnumerator;
+  the compiler-generated enumerator forwards it only into a parameter
+  marked [EnumeratorCancellation] - and the body must still consume it
+  (ThrowIfCancellationRequested or pass it to awaits). A parameterless
+  iterator discards the token with no warning and no exception: the loop
+  runs to natural completion however hard the caller cancels. (A token
+  parameter *without* the attribute at least draws CS8425; the
+  parameterless shape draws nothing at all - verified clean build.)
+- **Who hits it:** consumers of IAsyncEnumerable APIs - streaming
+  queries, event feeds, paging wrappers - adding WithCancellation for
+  shutdown or timeout and trusting the name; and library authors who
+  forget the attribute, shipping uncancellable streams to every caller.
+- **Repro:** parameterless 10-item iterator, cancel after item 2: all 10
+  items arrive, no exception. Same loop over an
+  [EnumeratorCancellation] + ThrowIfCancellationRequested iterator:
+  OperationCanceledException after 3. Deterministic, no packages.
+- **Damage:** graceful shutdown that isn't - the drain loop keeps
+  consuming a stream it "cancelled", holds the process past its deadline,
+  and gets killed hard mid-item; stream timeouts that never fire.
+- **😈 seed:** the API splits the contract so both sides are right and
+  the pair is still wrong: the caller correctly wrote WithCancellation,
+  the author correctly shipped a warning-free iterator - and the piece
+  that connects them is one attribute whose absence no call site can
+  see.
+- **Verified:** ran on .NET 10 (2026-07-24): 10 of 10 items after cancel
+  with the parameterless iterator, cancelled after 3 with the attributed
+  one.
+
+### trywrite-drops-silently (A7,5)
+
+- **Twist:** the producer ported ConcurrentQueue.Enqueue to
+  Channel.Writer.TryWrite - same one-liner shape, except Enqueue was void
+  and TryWrite returns the bool that says "I did not take your message":
+  on a full bounded channel, every ignored false is a lost order.
+- **Mechanic:** a bounded channel must do something at capacity; TryWrite
+  never waits - it returns false and the *caller* drops the message by
+  ignoring the return. Only WriteAsync waits for room. Muscle memory from
+  void Enqueue/Add makes the return value invisible, and nothing warns
+  about discarding it. The BoundedChannelFullMode options decide who
+  loses on overflow; TryWrite-with-ignored-return loses the newest,
+  invisibly.
+- **Who hits it:** producers feeding bounded pipelines - log shippers,
+  telemetry, order queues - refactored from unbounded collections; the
+  bound was usually added "for safety" during a load incident, quietly
+  converting backpressure into loss.
+- **Repro:** CreateBounded&lt;string&gt;(1); three TryWrites with ignored
+  returns - the consumer receives exactly one item; the returns printed
+  are True/False/False; the WriteAsync loop delivers 3 of 3.
+  Deterministic, no packages (System.Threading.Channels is in-box).
+- **Damage:** loss that only happens under load: the channel is full
+  precisely when traffic peaks, so the busiest minutes are the ones with
+  holes - producer logs and consumer effects diverge with no error on
+  either side.
+- **😈 seed:** adding the bound is what armed it: the unbounded original
+  never dropped anything (it just grew), so the "pure hardening" PR that
+  added capacity traded a visible OOM someday for invisible loss today.
+- **Verified:** ran on .NET 10 (2026-07-24): 1 of 3 delivered with
+  ignored TryWrite returns (True/False/False), 3 of 3 with WriteAsync.
 
 ## Seeds
 
