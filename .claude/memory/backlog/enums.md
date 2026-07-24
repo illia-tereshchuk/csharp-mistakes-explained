@@ -25,14 +25,117 @@
 - **Verified:** ran on .NET 10 (2026-07-22): (Read|Write).HasFlag(Delete)
   == true.
 
+### hasflag-zero-always-true (A5)
+
+- **Twist:** `user.HasFlag(Permission.None)` is true for every user in the
+  system - zero is a subset of everything - so the "no-access" branch
+  either runs for everyone or the check quietly means nothing.
+- **Mechanic:** HasFlag(f) computes `(value & f) == f`; with f = 0 both
+  sides are 0 and the answer is always true. The manual idiom it
+  replaced - `(value & flag) != 0` - answers *false* for the same
+  question, so the modernization from bitwise to HasFlag flips semantics
+  precisely on the zero member. The only honest spelling for "no flags"
+  is `value == Permission.None`.
+- **Who hits it:** [Flags] enums with a None member - permission systems,
+  feature gates, option sets. "Has the None permission" reads like
+  perfect English, compiles, and always answers yes.
+- **Repro:** Permission { None, Read, Write, Admin }: HasFlag(None) true
+  for a reader, a full admin, and an actual nobody; `== None` separates
+  them; `(value & None) != 0` disagrees with HasFlag. Deterministic, no
+  packages.
+- **Damage:** a guard that fires for everyone or for no one - lockout
+  logic applied to every user, or "no permissions" cleanup that never
+  runs; and because HasFlag reads like English, review approves it every
+  time.
+- **😈 seed:** the two spellings everyone treats as synonyms - HasFlag(f)
+  and `(value & f) != 0` - agree on every member *except* None: a
+  refactor in either direction silently flips the zero case.
+- **Verified:** ran on .NET 10 (2026-07-24): HasFlag(None) true for all
+  three users; == None true only for the empty one; the manual idiom
+  answered false.
+
+### enum-default-is-zero (A5)
+
+- **Twist:** nobody assigned anything and the order is already "Active":
+  default(TEnum) is whichever member equals 0 - and if *no* member equals
+  0, the runtime manufactures a value that is not any member, without a
+  single cast in sight.
+- **Mechanic:** enums are integers with names and default is always 0.
+  Flavor (a): the first declared member sits at 0 by accident of
+  ordering, so every uninitialized field, array slot, and missing JSON
+  property arrives as a real business state. Flavor (b): with
+  `enum Priority { Low = 1, High = 2 }`, default(Priority) prints "0",
+  Enum.IsDefined says false, and a switch falls to the fallback arm - a
+  non-member value born from `default`, not from any parse or cast.
+- **Who hits it:** every DTO, struct field, array, and deserialized
+  payload holding an enum whose author didn't reserve 0 for
+  Unknown/None - the platform's own design guideline exists precisely
+  because of this.
+- **Repro:** OrderStatus { Active, Cancelled, Shipped }: default(),
+  new OrderStatus[2], new Dto().Status, and Deserialize&lt;Dto&gt;("{}")
+  all print Active. Then Priority with no zero member: prints 0,
+  IsDefined false, switch hits the fallback. JSON half needs
+  `#:property PublishAot=false`.
+- **Damage:** unset reads as Active - orders nobody activated get
+  processed, and the audit shows a valid state that no code ever
+  assigned; flavor (b) instead feeds your switches a value they never
+  planned for.
+- **NOTE for the curator:** adjacent to rejected `enum-accepts-undefined`,
+  but the objection there was "nobody pushes a number into an enum" -
+  here nobody pushes anything: default, arrays, and missing JSON
+  manufacture the value from inside. Flagged for the judgment call.
+- **😈 seed:** the fix has its own trap: renumbering an existing enum to
+  insert Unknown = 0 shifts every persisted value by one -
+  the-renumbered-status (serialization) is one well-intentioned fix away
+  from this exhibit.
+- **Verified:** ran on .NET 10 (2026-07-24): all four flavor-(a) paths
+  returned Active; flavor (b) printed 0, IsDefined false, switch fell
+  through.
+
+### isdefined-rejects-legal-flags (A4,5)
+
+- **Twist:** the validation gate `Enum.IsDefined(request.Permissions)`
+  rejects Read | Admin - a perfectly legal combination - while accepting
+  Read | Write, because someone happened to *name* that combo: validity
+  by whether a constant was declared, not by what the type allows.
+- **Mechanic:** IsDefined checks membership among declared constants, not
+  representability: a combined flags value is "undefined" unless the
+  exact combination is itself a named member (ReadWrite = 3 makes 3
+  defined; 5 stays undefined). Meanwhile ToString prints "Read, Admin"
+  fluently - the formatting layer understands flags, the validation
+  layer doesn't.
+- **Who hits it:** guard clauses and model validation on [Flags]
+  properties - "reject values not in the enum" is a standard defensive
+  line, and on a flags enum it rejects most of the feature it guards.
+  Teams then either delete the check or keep shipping 400s for legal
+  requests.
+- **Repro:** [Flags] Perm { Read=1, Write=2, Admin=4, ReadWrite=3 }:
+  IsDefined true for Read and Read|Write, false for Read|Admin and
+  Write|Admin; a validation loop 400-rejects the legal request while
+  ToString prints it as "Read, Admin". Deterministic, no packages.
+- **Damage:** 400s that depend on which checkboxes a user combined - the
+  permissions matrix works for the combos QA tested (the named ones) and
+  rejects the rest; deleting the check instead reopens the gate to
+  actual junk.
+- **COORDINATION:** three different lies about one feature, three
+  exhibits: bad numbering (the-overlapping-flags, this hall), pattern
+  equality (the-banned-user-walked-in, pattern-matching), and this -
+  validation vs combination. Cross-link, don't merge.
+- **😈 seed:** naming every meaningful combo "fixes" it onto a
+  treadmill: each new flag doubles the combinations, and the first
+  forgotten name is a fresh 400 that lands as a regression ticket.
+- **Verified:** ran on .NET 10 (2026-07-24): named combo accepted,
+  unnamed legal combos rejected, ToString printed the rejected combo as
+  "Read, Admin".
+
 ## Seeds
 
 Not yet a full candidate - brainstorm before proposing.
 
-- **hasflag-zero-always-true** (A5) - `permissions.HasFlag(Permission.None)`
-  is always true because every set contains the zero flag, so the guard
-  meant to detect "no permissions" passes for everyone.
-
-- **enum-default-is-zero** (A5) - `default(Status)` is 0 whatever you named
-  it; if `Active` is the first member, every uninitialized DTO and struct
-  field arrives already "Active" without anyone setting it.
+- **the-alias-that-never-prints** - `enum Status { Active = 1,
+  Enabled = 1 }`: Enabled.ToString() prints "Active" (verified
+  2026-07-24) - an alias member exists for source compatibility but
+  never appears in logs, string-serialized JSON, or GetValues-built
+  dropdowns (GetValues returns the duplicate). Which name wins is
+  documented as unspecified. Needs a damage framing (audit logs,
+  external API contracts?) before promoting.
