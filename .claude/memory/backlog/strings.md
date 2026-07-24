@@ -51,23 +51,162 @@
   wanted, the curator picks.
 - **Verified:** encoding math; verify at build.
 
+### trim-is-a-charset-not-a-prefix (A4,5)
+
+- **Twist:** `url.TrimStart("https://".ToCharArray())` does not strip the
+  prefix - it eats every leading character from the *set* {h,t,p,s,:,/}:
+  "track" becomes "rack", "svc" becomes "vc" - while "example.com"
+  survives intact, so the developer's own test passed.
+- **Mechanic:** Trim/TrimStart/TrimEnd take a char array as an unordered
+  set and keep trimming while the next character is in it. Any host whose
+  first letter is h, t, p or s gets eaten past the prefix, letter by
+  letter, until a non-member appears. There is no TrimPrefix in the BCL;
+  the correct spelling is StartsWith + a range slice.
+- **Who hits it:** prefix stripping over URLs, paths, and keys - "remove
+  the scheme", "drop the env prefix" - written as the one-liner that
+  reads exactly like the intent and reviews as obviously right.
+- **Repro:** four hosts through both spellings: track->rack, svc->vc,
+  portal->ortal, example.com->untouched; the StartsWith version leaves
+  all four correct. Deterministic, no packages.
+- **Damage:** corrupted hostnames and keys stored or requested - and only
+  for values whose first letter collides with the "prefix" set, so the
+  failures look data-dependent and random instead of systematic.
+- **😈 seed:** example.com passing IS the trap's own certification: the
+  canonical placeholder domain starts with 'e', outside the set, so the
+  demo, the unit test, and the docs sample all confirm the broken line.
+- **Verified:** ran on .NET 10 (2026-07-24): rack / vc / ortal /
+  example.com untouched; StartsWith spelling correct on all four.
+
+### unnormalized-strings-not-equal (A2,4)
+
+- **Twist:** two "café" print identically and `==` says they differ
+  (Lengths 4 and 5) - and the app splits down the middle: HashSet and the
+  database index see two values, culture-aware Equals sees one.
+- **Mechanic:** Unicode encodes é two ways - composed U+00E9 and "e" plus
+  combining U+0301. Ordinal machinery (==, default HashSet, unique
+  indexes) compares code units: different. Linguistic comparison
+  (InvariantCulture Equals) matches them: equal. `string.Normalize()`
+  brings ordinal into agreement. The two forms genuinely co-arrive in one
+  system: macOS emits decomposed (NFD), Windows keyboards composed.
+- **Who hits it:** uniqueness and lookup over human text - usernames,
+  tags, coupon codes, file names crossing macOS/Windows - two visually
+  identical entries both get in, or a lookup misses a row that "is right
+  there".
+- **Repro:** composed and decomposed literals: print both, Lengths 4/5,
+  == false, Ordinal false vs InvariantCulture true, HashSet counts 2 vs 1
+  by comparer, Normalize() == true. Deterministic, no packages.
+- **Damage:** duplicate accounts and coupons that support cannot even see
+  as duplicates - both rows render identically in every UI - or the
+  mirror: "name already taken" by a name no search can find.
+- **😈 seed:** the investigation runs on ordinal tools - SQL WHERE, grep,
+  Ctrl+F all miss the twin - so the duplicate is invisible precisely to
+  the person hunting it.
+- **Verified:** ran on .NET 10 (2026-07-24): == false, InvariantCulture
+  Equals true, HashSet 2 vs 1 by comparer, Normalize made them equal.
+
+### removeemptyentries-shifts-columns (A5)
+
+- **Twist:** the empty CSV field is legal - discount just isn't set - and
+  the cleanup option everyone reflexively adds, RemoveEmptyEntries,
+  deletes it: every later column shifts left and the price becomes the
+  quantity.
+- **Mechanic:** default Split preserves positions - empty entries are
+  kept, trailing ones included - so positional indexing is safe.
+  StringSplitOptions.RemoveEmptyEntries collapses the array;
+  TrimEntries | RemoveEmptyEntries additionally nukes whitespace-only
+  fields. After either, items[i] reads a neighboring column. NOTE: the
+  original PR-#2 seed framed the *default* as the bug ("empty kept, so
+  columns shift") - verification showed the opposite: the default is
+  positionally safe, the option is the corruption. Reframed accordingly.
+- **Who hits it:** positional parsing of delimited exports where blank
+  means "not set" - the option usually arrives later, in a
+  "handle blank lines" or tidy-up commit that reviews as harmless.
+- **Repro:** "Widget,,4,19.99" as name,discount,qty,price: default gives
+  4 items with qty=4 and price=19.99 in place; RemoveEmptyEntries gives 3
+  items with 19.99 sitting in the qty slot. Deterministic, no packages.
+- **Damage:** per-row transposition: complete rows parse perfectly, only
+  rows with a blank field shift - numbers land in wrong columns and
+  "parse successfully", defeating spot checks and samples alike.
+- **😈 seed:** test fixtures are written from happy, fully-filled example
+  rows - the one shape the bug cannot touch - so coverage certifies the
+  parser on exactly the inputs that dodge it.
+- **Verified:** ran on .NET 10 (2026-07-24): default kept 4 positions;
+  RemoveEmptyEntries shifted price into the qty slot; trailing empties
+  kept by default.
+
+### interpolation-is-culture-sensitive (A4)
+
+- **Twist:** the same `$"{price}"` writes "1234.56" on the build server
+  and "1234,56" in Frankfurt - interpolation formats with CurrentCulture,
+  so the CSV or SQL your code assembles is malformed in exactly one
+  region.
+- **Mechanic:** `$"..."` lowers to formatting with CurrentCulture:
+  decimal separators and date order flip per machine (en-US
+  "1234.56;7/24/2026" vs de-DE/uk-UA "1234,56;24.07.2026"). The invariant
+  spellings - `FormattableString.Invariant($"...")` and
+  `string.Create(CultureInfo.InvariantCulture, $"...")` - both fix it.
+  Cultures are pinned in code, per the CI-honesty rule.
+- **Who hits it:** anyone assembling machine-readable text by
+  interpolation - CSV exports, SQL strings, query strings, config -
+  developed under en-US or invariant CI, deployed onto servers with real
+  locales.
+- **Repro:** pin en-US, de-DE, uk-UA in turn; print one CSV line and one
+  SQL WHERE: comma decimals and flipped dates appear under de/uk; then
+  both invariant spellings print dots. Deterministic *because* pinned.
+- **Damage:** exports whose numbers change meaning by deployment region -
+  downstream parsers reject the line or, where comma is a grouping
+  separator, quietly read a different number; the SQL comparison stops
+  matching anything.
+- **😈 seed:** CI is blind by construction: build containers typically
+  run the invariant culture, so every test passes there and the bug
+  exists only on the machines nobody tests on - the inverse of
+  works-on-my-machine.
+- **Verified:** ran on .NET 10 (2026-07-24): de-DE and uk-UA produced
+  comma decimals and flipped dates; both invariant spellings produced
+  dots.
+
+### contains-and-indexof-disagree (A4,5)
+
+- **Twist:** string.Contains is ordinal by default, string.IndexOf(string)
+  is CurrentCulture - one method family, two defaults - so the
+  hidden-character guard written with IndexOf "finds" a zero-width joiner
+  at position 0 of the clean word "admin" and blocks every input in the
+  system.
+- **Mechanic:** culture-sensitive comparison treats ignorable characters
+  (ZWJ, soft hyphen) as matching the empty string, so IndexOf(zwj)
+  returns 0 on *any* string while Contains(zwj) - ordinal - says false
+  and the Ordinal IndexOf overload says -1. StartsWith shares the culture
+  default: a joiner-prefixed "admin" StartsWith("admin") is true
+  culturally, false ordinally, `==` false, InvariantCulture Equals true -
+  five spellings, three answers. Requires ICU globalization (the default
+  since .NET 5); keep `InvariantGlobalization` off or every comparison
+  collapses to ordinal and the demo - like production behavior - changes.
+- **Who hits it:** sanitizers hunting invisible characters (the
+  hidden-char defenses themselves!), prefix routing on StartsWith, and
+  any logic mixing Contains and IndexOf as if interchangeable - which is
+  how they read in review.
+- **Repro:** ZWJ probe: Contains false / IndexOf 0 / Ordinal -1; the
+  guard blocking a clean "admin"; joiner-prefixed name passing culture
+  StartsWith while failing ordinal and ==. Deterministic under ICU, no
+  packages.
+- **Damage:** both failure directions at once: the sanitizer that blocks
+  everyone (loud), and the allowlist/prefix check that a joiner-carrying
+  impostor passes while `==` would have caught it (silent) - identity
+  confusion in exactly the code written to prevent it.
+- **😈 seed:** the inconsistency is permanent by design - IndexOf is
+  ancient (culture), Contains arrived later (ordinal), and compat locks
+  both defaults forever; the CA1310 analyzer that would flag it ships
+  disabled.
+- **Verified:** ran on .NET 10 (2026-07-24, Linux ICU): Contains false /
+  IndexOf 0 / Ordinal -1; the guard blocked clean input; StartsWith split
+  true/false; == false while InvariantCulture Equals true.
+
 ## Seeds
 
 Not yet a full candidate - brainstorm before proposing.
 
-- **trim-is-a-charset-not-a-prefix** (A4,5) -
-  `url.TrimStart("https://".ToCharArray())` strips any leading character in
-  that *set*, not the prefix - a URL starting with 's', 't', 'p' or '/'
-  gets eaten letter by letter.
-
-- **unnormalized-strings-not-equal** (A2,4) - "é" as one code point and as
-  "e" plus combining accent print identically but ordinal `==` says they
-  differ - a uniqueness check waves through a duplicate it cannot see.
-
-- **split-keeps-empty-entries** (A5) - `"a,,b".Split(',')` returns three
-  items, not two: the empty middle field is kept by default, so a positional
-  parser reads every later column shifted by one.
-
-- **interpolation-is-culture-sensitive** (A4) - `$"{amount}"` formats with
-  the current culture, so the same code builds "1,50" or "1.50" per machine -
-  pin two cultures explicitly to stay CI-honest.
+- **encoding-getbytes-drops-chars** - Encoding.ASCII.GetBytes("café")
+  silently yields "caf?" - the encode-direction sibling of
+  mojibake-factory (decode direction) and readalltext-guesses-encoding
+  (io hall). Verify the exact fallback behavior and find a framing
+  distinct from both before promoting.
