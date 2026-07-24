@@ -54,7 +54,6 @@ per hall. New halls: add a row here first.
 |------|:--:|---|
 | http | 🌐 | HTTP |
 | configuration | ⚙️ | Configuration |
-| regex | 🔤 | Regex |
 | testing | 🧪 | Testing |
 | io | 📁 | IO & Files |
 

@@ -94,6 +94,6 @@ and the mechanic behind it.
 
 ## To Be Continued
 
-🕳️ Nullability · 🧬 Generics · 🏷️ Enums · 🥊 Boxing · 🪞 Reflection · 💾 Memory · 🌐 HTTP · ⚙️ Configuration · 🔤 Regex · 🧪 Testing · 📁 IO & Files · 🧵 Strings · 🔒 Security
+🕳️ Nullability · 🧬 Generics · 🏷️ Enums · 🥊 Boxing · 🪞 Reflection · 💾 Memory · 🌐 HTTP · ⚙️ Configuration · 🧪 Testing · 📁 IO & Files · 🧵 Strings · 🔒 Security
 
 <!-- EXHIBITS:END -->

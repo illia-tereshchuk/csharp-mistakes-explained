@@ -18,6 +18,7 @@ in the "reason" column; they encode the curation bar.
 | lock-on-a-string | doesn't happen in real code | "nobody in their right mind locks on a string when every tutorial screams to lock on a dedicated object." The literal-string version is textbook-warning material, not production code. The realistic cousin (lock on a runtime string, which locks nothing because runtime strings are not interned) was offered too and also declined. |
 | sort-is-unstable | no real damage | "in a normal system this practically never breaks anything." Swapping two elements that compare equal loses nothing you asked to preserve; the mechanic is real (List.Sort is stable up to 16 elements, unstable from 17) but the consequence isn't worth an exhibit. |
 | firstordefault-on-structs | premise doesn't hold | "nobody null-checks a struct - nonsense." He is right, and stronger than that: `found == null` does not even compile for a non-nullable struct, so the bug as I framed it cannot happen. My framing dressed a real nuance (default(T) is zeros, not null) in an impossible scenario. |
+| regex (entire hall) | not a footgun domain | hall-level removal, his words (translated from Ukrainian): "it's not the kind of section where you can easily screw up." Regex mistakes don't meet the museum's easy-to-make bar, so the whole topic is out: hall row deleted from halls.md, backlog/regex.md deleted with all four queued candidates (missing-anchors-pass-anything, dot-misses-newline, unescaped-regex-input, slash-d-matches-unicode-digits). Never propose regex candidates again. |
 
 ## Reason categories (the bar, distilled)
 
@@ -28,5 +29,6 @@ in the "reason" column; they encode the curation bar.
 5. **Doesn't happen in real code** - technically real, but the author judges it too contrived to occur in actual projects. His lived-experience filter overrides textbook correctness; when unsure whether a bug is "real enough", prefer everyday-contract scenarios over exotic API footguns.
 6. **Premise doesn't hold** - my own error: the proposed scenario cannot occur as described (the compiler forbids it, the API prevents it). Before proposing, mentally compile the bad code - if it wouldn't build, the exhibit doesn't exist.
 7. **No real damage** - the mechanic is real and does occur, but in a normal system nothing meaningful breaks. Reproducing a quirk is not enough; ask what the reader actually loses. If the honest answer is "nothing you asked to keep", it isn't an exhibit.
+8. **Not a footgun domain (hall-level)** - the curator can retire an entire topic area: the domain does not generate the everyday, easy-to-make mistakes the museum collects. All of the hall's candidates are rejected at once, the hall row leaves halls.md, and its backlog file is deleted. Check new hall proposals against this bar before stocking them.
 
 If a new idea trips any of these, pre-filter it before proposing.
