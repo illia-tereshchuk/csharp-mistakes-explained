@@ -1,45 +1,6 @@
 # TODO
 
-Remaining work, current as of the framework migration (2026-07-19).
-
-## Next stage: open the museum to contributors
-
-Curator's new direction (2026-07-19): invite other developers to add exhibits.
-A contributor clones the repo, runs Claude, gets offered a menu of candidate
-mistakes, is guided through the same build workflow, and ends at a pull request.
-Their GitHub username appears on the front page next to the rule they added. It
-should feel like a game.
-
-The framework already carries most of this: `.claude/` is committed, so a
-cloner inherits the rules, the skills, the tools and - most valuable -
-`rejected.md`, which pre-filters the ideas the curator would decline.
-
-**Open decisions (ask before building):**
-
-1. **Who is the gate?** Recommended: the curator stays the curator and the PR is
-   the gate. Contributors are guided all the way to a PR; he accepts or rejects;
-   rejections keep feeding `rejected.md`. Self-service would erode the bar,
-   because the hard part is his lived-experience judgment, not the mechanics.
-2. **Number collisions.** Two contributors both run `next-id` and both get the
-   same id. Options: assign the number at merge time (folder uses the slug until
-   then), curator assigns on claim, or first merged PR wins and the second
-   renumbers.
-3. **Claiming.** The backlog needs to show what is taken and by whom, so two
-   people don't build the same exhibit.
-
-**Work items once decided:**
-
-- Reverse the solo-project stance: `CLAUDE.md` currently says "no
-  external-contributor scaffolding", and `CONTRIBUTING.md` was deliberately
-  deleted. A new thin CONTRIBUTING (the skills do the teaching) plus a
-  contributor-facing entry point.
-- A contributor skill (or a contributor mode on the existing ones) that
-  onboards, shows the menu, builds, and walks to the PR.
-- `author` field in exhibit front-matter; `tools/gen-frontpage.cs` appends
-  `(@username)` after the rule on the front page; update
-  `.claude/rules/exhibit-readme.md` and the template.
-- Game layer: opening one of the remaining planned halls is the rare
-  achievement; the commandment list doubles as a scoreboard.
+Remaining framework/infra work. Consolidated 2026-07-24.
 
 ## Open
 
@@ -51,17 +12,44 @@ cloner inherits the rules, the skills, the tools and - most valuable -
 - **Launch polish.** Badges (exhibit count), final proofread, LinkedIn poll copy
   (<=30 chars, 4 options).
 - **Tags cross-index.** Once tags are consistent across exhibits, generate a
-  tag/archetype index alongside the front page.
+  tag/archetype index alongside the front page (the `archetypes.md` mix and each
+  exhibit's front-matter `tags` are the inputs).
 
 ## Done
 
-- Full framework migration to native Claude Code mechanisms: root `CLAUDE.md`,
-  path-scoped `.claude/rules/`, the `add-exhibit` / `propose-exhibits` /
-  `reject-exhibit` skills. Retired the homemade `conventions.md`,
-  `exhibit-recipe.md`, `playbook.md`.
-- Tools: `next-id.cs`, `check-links.cs`, `gen-frontpage.cs` (front page is now
+- **Framework migration (2026-07-19).** Native Claude Code mechanisms: root
+  `CLAUDE.md`, path-scoped `.claude/rules/`, the `add-exhibit` /
+  `propose-exhibits` / `reject-exhibit` skills. Retired the homemade
+  `conventions.md`, `exhibit-recipe.md`, `playbook.md`. Memory relocated from
+  `claude-calibration/` into `.claude/memory/`, indexed by `MEMORY.md` and
+  auto-loaded via a `CLAUDE.md` import.
+- **Tools.** `next-id.cs`, `check-links.cs`, `gen-frontpage.cs` (front page is
   generated, list-style, no difficulty levels).
-- Hall taxonomy expanded to ~30 in `halls.md`.
-- Memory relocated from the freestyled `claude-calibration/` into `.claude/memory/`,
-  indexed by `MEMORY.md` and auto-loaded via a `CLAUDE.md` import.
-- Exhibits 0001-0023.
+- **Hall taxonomy.** Expanded to ~30 planned halls in `halls.md`; `regex` later
+  retired at hall level (2026-07-24, see `rejected.md`).
+- **Opened the museum to contributors (shipped 2026-07-21..23).** The curator's
+  2026-07-19 direction is live: outsiders fork, run Claude, get the badged menu,
+  build to a PR, and land credited on the front page. What shipped -
+  - `CONTRIBUTING.md` (thin; the `contribute` skill does the teaching) reversed
+    the old solo-project stance;
+  - the `contribute` skill onboards, shows the menu, builds, walks to the PR;
+  - `author` front-matter + `gen-frontpage.cs` appends `(@username)` after the
+    rule (the curator's own exhibits stay uncredited);
+  - **PR is the gate** - the curator reviews every exhibit, rejections keep
+    feeding `rejected.md`;
+  - **number collisions** resolved by *first merged PR wins, second renumbers at
+    merge* (precedent: two `#0032` PRs, one became `#0033`).
+  First contributor exhibits: #0030 (@tygronia), #0031, #0032 (@helga-pawlowska),
+  #0033 (@Archikrim), #0034 (@alejandro-capel).
+- **Backlog fully stocked (2026-07-22..24).** Every planned hall carries verified
+  candidates; each premise was run on .NET 10 before landing. See per-hall files
+  under `backlog/`.
+- Exhibits 0001-0034.
+
+## Not yet started
+
+- **Claiming / "taken" state in the backlog.** So two contributors don't build
+  the same candidate. Not yet needed at current contributor volume; revisit if
+  collisions become common.
+- **Game layer.** Opening one of the remaining planned halls as the rare
+  achievement; the commandment list doubling as a scoreboard. Aspirational.

@@ -2,17 +2,19 @@
 
 The taxonomy that emerged at ~25 candidates. Not halls (halls = tech area);
 archetypes = the SHAPE of the wrong mental model. Use for curation balance,
-tag design, and the future cross-index. Each exhibit maps to 1-2.
+tag design, and the future cross-index. Each exhibit maps to 1-2. The examples
+below are illustrative, not exhaustive (34 exhibits now) - shipped ids first,
+then a live candidate; rejected ideas never appear here.
 
-| # | Archetype | The broken belief | Exhibits (done + candidate) |
+| # | Archetype | The broken belief | Examples (shipped ids; candidate) |
 |--:|-----------|-------------------|------------------------------|
-| 1 | **Time gap** | capture/defer now, execute later - value read at the wrong moment | 0006, 0007, 0009, tasks-are-not-results, the-forgotten-task |
-| 2 | **Broken identity contract** | equality / hash / interning stays stable while I mutate | 0004, lock-on-a-string, distinct-that-didnt |
-| 3 | **Hidden copy** | I mutated the thing; I mutated a copy | 0009 (membership-not-values), vanishing-mutation, defensive-copy-ambush |
-| 4 | **Same name, different fate** | identical syntax = identical behavior | 0002 (0.1 literal), Count vs Count(), FromSqlRaw vs Interpolated, DateTime == |
+| 1 | **Time gap** | capture/defer now, execute later - value read at the wrong moment | 0006, 0007, 0018, 0019, 0031; async the-cached-failure |
+| 2 | **Broken identity contract** | equality / hash / interning stays stable while I mutate | 0001, 0004, 0013, 0023; boxing boxed-values-are-equal-not-same |
+| 3 | **Hidden copy** | I mutated the thing; I mutated a copy | 0009, 0011, 0028; value-types the-vanishing-mutation |
+| 4 | **Same name, different fate** | identical syntax = identical behavior | 0002, 0024, 0025, 0027, 0030, 0032; pattern-matching boxed-five-is-not-five |
 | 5 | **Silent wrongness** | it threw, so I'd know / it didn't throw, so it's fine | pervasive; the fear ladder crash < wrong < *silently* wrong. Most 😈 sections. |
-| 6 | **Environment as hidden input** | GC / threadpool / culture / timezone are constant | 0003, the-collected-timer, the-immortal-subscriber, the-25-hour-day |
-| 7 | **Discarded return** | the method mutated in place (it returned instead) | 0005 (throw ex), path-combine-betrayal, string methods |
+| 6 | **Environment as hidden input** | GC / threadpool / culture / timezone are constant | 0003, 0010, 0020, 0022; async the-collected-timer |
+| 7 | **Discarded return** | the method mutated in place (it returned instead) | 0005; async trywrite-drops-silently, strings string methods |
 
 ## Why this matters at scale
 

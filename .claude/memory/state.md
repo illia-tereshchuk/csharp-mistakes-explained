@@ -46,11 +46,16 @@ _Snapshot; `dotnet run tools/next-id.cs` is authoritative for numbering._
 
 ## Halls
 
-**17 opened**, the rest planned. Full registry (slugs, emoji, status) is in
-`halls.md` - the encyclopedia taxonomy expanded to ~30 halls on 2026-07-19.
+**17 opened, 16 planned** (33 total). Full registry (slugs, emoji, status) is in
+`halls.md` - taxonomy expanded to ~30 on 2026-07-19; `regex` retired at hall
+level 2026-07-24 (see `rejected.md`). Every planned hall is stocked with
+verified candidates in `backlog/`.
 
 ## Infra status
 
 - `tools/next-id.cs` - live (counts folders, flags dup numbers, exit 1).
 - `tools/check-links.cs` - live (bare #NNNN refs + dead relative links, exit 1). Run before every exhibit commit.
-- Roadmap steps 8-10 (TOC generator, CI, polish) - NOT started. See `todo.md`.
+- `tools/gen-frontpage.cs` - live (regenerates the README front page from
+  `halls.md` + exhibit front-matter; credits `@author`). Run before committing
+  an exhibit so the front page never goes stale.
+- CI (GitHub Actions) - deferred by the curator; see `todo.md`.
